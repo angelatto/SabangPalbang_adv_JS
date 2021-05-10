@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="app">
+<!--  ng-app="app" 디렉티브 한 부분-->
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular-route.min.js"></script>
+    <!-- angular chart -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.23/angular.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.3.0/Chart.bundle.js"></script>
+    <script src="//cdn.jsdelivr.net/angular.chartjs/latest/angular-chart.min.js"></script>
+
+    <base href="/"/>
+
+    <script src="js/app.js"></script>
+    <script src="js/appRoute.js"></script>
+
+    <script src="js/controllers/authController.js"></script>
+    <script src="js/services/authService.js"></script>
+
+    <script src="js/controllers/sabangController.js"></script>
+    <script src="js/services/sabangService.js"></script>
+
+    <script src="js/controllers/palbangController.js"></script>
+    <script src="js/services/palbangService.js"></script>
+    <script src="js/controllers/orderController.js"></script>
+    <script src="js/services/orderService.js"></script>
+
+    <script src="js/controllers/inquiryController.js"></script>
+    <script src="js/services/inquiryService.js"></script>
+
+    <script src="js/controllers/memberController.js"></script>
+    <script src="js/services/memberService.js"></script>
+
+    <script src="js/controllers/profitController.js"></script>
+    <script src="js/services/profitService.js"></script>
+</head>
+
+<body ng-controller="mainController">
+    <div class="header_logo mt-3">
+        <div ng-show="uid">
+            <a href="/profit_m">사방팔방 관리자 페이지</a>
+            <div class="main_auth_btn">
+                <button type="button" class="btn" ng-click="logout()"
+                    style="background-color: #00B0F0; color: white;">로그아웃</button>
+            </div>
+        </div>
+        <div ng-hide="uid">
+            사방팔방 관리자 페이지
+        </div>
+    </div>
+
+    <div ng-show="uid">
+        <ng-include src="'menu.html'"></ng-include>
+    </div>
+
+    <div>
+        <ng-view />
+    </div>
+
+    <footer>
+        <div class="footer_top">
+            <div class="footer_name">
+                <a href="info" style="color: black;">
+                    <h3>사방팔방 이야기</h3>
+                </a>
+
+            </div>
+            <div class="footer_sns">
+                <a class="footer_icon" href="https://www.instagram.com/">
+                    <img src="img/instagram.png" width="30" height="30" />
+                </a>
+                <a class="footer_icon" href="https://www.facebook.com/">
+                    <img src="img/facebook.png" width="30" height="30" />
+                </a>
+            </div>
+        </div>
+
+        <hr />
+        <div class="footer_info">
+            <table>
+                <tbody>
+                    <tr>
+                        <td>상호명: </td>
+                        <td colspan="3">사방팔방</td>
+                    </tr>
+                    <tr>
+                        <td>문의하기: </td>
+                        <td>2조</td>
+                        <td>이종현</td>
+                        <td>조민상</td>
+                        <td>이채정</td>
+                    </tr>
+                    <tr>
+                        <td>주소: </td>
+                        <td colspan="3">서울특별시 송파구 중대로 135, 서관12층 </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <p class="footer_copyright">Copyright Ⓒ 2021 4bang8bang. All rights reserved</p>
+    </footer>
+
+</body>
+</html>

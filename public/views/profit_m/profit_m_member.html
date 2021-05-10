@@ -1,0 +1,93 @@
+<style>
+    .listDesign {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .listDesign:hover {
+        color: white;
+        background-color: #00B0F0;
+    }
+  
+</style>
+<div class="card">
+    <div class="card-header">
+        회원 현황
+    </div>
+    <div class="card-body">
+        <div>
+            <div> 
+                <!-- 막대 그래프 자리 -->
+                <canvas 
+                    class="chart chart-bar" chart-data="data_member" chart-labels="labels_member" chart-colors="color1"
+	                chart-series="series_member">
+                </canvas> 
+            </div>
+        </div>
+        <br>
+        <div>
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            우수 고객 TOP-5 
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="thead-dark" style="text-align: center;">
+                                        <th>순위</th>
+                                        <th>아이디</th>
+                                        <th>이메일</th>
+                                        <th>이름</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                      <tr class="listDesign" ng-repeat="vip in vipMembers">  
+                                        <td>{{$index+1}}</td>           
+                                        <td>{{vip.member_id}}</td>
+                                        <td>{{vip.member_email}}</td>
+                                        <td>{{vip.member_name}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <div class="card">
+                    <div class="card-header">
+                        <div>
+                            인플루언서 TOP-5 
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div>
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr class="thead-dark" style="text-align: center;">
+                                        <th>순위</th>
+                                        <th>아이디</th>
+                                        <th>이메일</th>
+                                        <th>별명</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                      <tr class="listDesign" ng-repeat="influencer in influencers">   
+                                        <td>{{$index+1}}</td>          
+                                        <td>{{influencer.member_id}}</td>
+                                        <td>{{influencer.member_email}}</td>
+                                        <td>{{influencer.member_nickname}}</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

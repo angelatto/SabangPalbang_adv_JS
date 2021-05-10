@@ -1,0 +1,149 @@
+<style>
+     .order_detail_header_btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: black;
+    }
+    .order_detail_header_content{
+        display: flex;
+        flex-direction: row;
+    }
+    .order_detail_content_sabangImg {
+        width: 24%;
+    }
+    .order_detail_header_detail {
+        margin-left: 1%;
+    }
+
+    .order_detail_content_mainContent {
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+        margin-left: 5%;
+
+    }
+
+    .order_detail_content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .order_detail_content_space {
+        display: flex;
+        flex-direction: row;
+        margin: 3%;
+    }
+
+    .order_detail_content_spaceImg {
+        width: 24%;
+    }
+
+    .order_detail_content_space_txt {
+        margin-left: 5%;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        <div class="order_detail_header">
+        <div class="order_detail_header_btn">
+            <div><button class="btn btn-sm m-3" style="background-color: #00ADF9; color: white;" ng-click="getList(pager.pageNo)">목록</button></div>
+            <div>
+                <button class="btn btn-sm" style="background-color: #0BE324; color: white;" ng-click="updateOrderForm()">주문수정</button>
+                <button class="btn btn-sm" style="background-color: #FB140D; color:  white;"  ng-click="deleteOrder(order.order_id)">주문삭제</button>
+            </div>
+            
+        </div>
+            <div class="order_detail_header_content m-3">
+                    <div class="order_detail_content_sabangImg mt-5">
+                        <img style="width: 400px; height:400px;" src="{{sattachUrl(sabang.sabang_id)}}">
+                    </div>
+                    <div class="order_detail_content_mainContent mt-5">
+                       
+                            <div class="order_detail_header_detail">
+                                <h4>주문번호: {{order.order_id}} </h4>
+                                <br/>
+                            </div>
+                            <div class="order_detail_header_detail">
+                                <h6>아이디: {{Memail.member_email}}</h6>
+                                <br/>
+                            </div>
+                            <div class="order_detail_header_detail">
+                                <h6>주문자: {{Memail.member_name}}</h6>
+                                <br/>
+                            </div>
+                            <div class="order_detail_header_detail">
+                                <h6>휴대번호: {{order.order_phone}}</h6>
+                                <br/>
+                            </div>
+                            <div class="order_detail_header_detail">
+                                <h6>우편번호: {{order.order_zipcode}}</h6>
+                                <br/>
+                                <h6>주소: {{order.order_roadaddress}} - {{order.order_detailaddress}}</h6>
+                                <br/>
+                            </div>
+                            
+
+                      
+                            <div class="order_detail_header_detail">
+                                <h6>결제금액: {{order.order_price | number:0}}원</h6>
+                                <br/>
+                            </div>
+                            <div class="order_detail_header_detail">
+                                <h6>배송상태: {{order.order_state}}</h6>
+                                <br/>
+                            </div>
+                            <div class="order_detail_header_detail">
+                                <h6>결제방법: {{order.order_payment}}</h6>
+                                <br/>
+                            </div>
+                            <div class="order_detail_header_detail">
+                                <h6>은행코드: {{order.order_bankcode}}</h6>
+                            </div>
+                        
+                    </div>
+                </div>
+            </div>
+    </div>
+    <div class="card-body">
+        <div class="order_detail_content">
+            <hr />
+
+            <div class="order_detail_content_space" ng-repeat="prod in product">
+                <div class="order_detail_content_spaceImg">
+                    <img style="width: 400px; height: 400px;"
+                        src="{{pattachUrl(prod.product_id)}}">
+                </div>
+                <div class="order_detail_content_space_txt">
+                    <div>
+                        <h6>상품ID: {{prod.product_id}}</h6>
+                        <br/>
+                    </div>
+                    <div>
+                    <h6>상품이름: {{prod.product_name}}</h6>
+                    <br/>
+                    </div>
+                    <div>
+                        <h6>상품가격: {{prod.product_price | number:0}}원</h6>
+                        <br/>
+                    </div>
+                        <br/>
+                        <br/>
+                        <br/>
+
+                    <div>
+                         <h6>{{prod.product_explain1}}</h6>
+                         <br/>
+                    </div>
+                    <div>
+                        <h6>{{prod.product_explain2}}</h6>
+                        <br/>
+                   </div>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>

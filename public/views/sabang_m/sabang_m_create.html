@@ -1,0 +1,20 @@
+<div class="card">
+    <div class="card-header">
+        사방 패키지 생성페이지
+    </div>
+    <div class="card-body">
+        <div>
+            <div class="form-group">
+                <label>패키지 이름:</label>
+                <input class="form-control" ng-model="sabang.sabang_name" />
+            </div>
+            <div class="form-group">
+                <label>대표사진 첨부:</label>
+                <br/>
+                <input id="sattach" type="file" class="form-control-file" />
+            </div>
+            <button class="btn btn-sm" style="background-color: #00ADF9; color: white;" ng-click="createSabang(sabang, $event)">등록</button>
+            <button class="btn btn-sm" style="background-color: #FB140D; color: white;" ng-click="cancel()">취소</button>        
+        </div>
+    </div>
+</div>

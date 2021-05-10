@@ -1,0 +1,123 @@
+/* font style */
+@font-face {
+    font-family: 'Wemakeprice-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_20-10-21@1.0/Wemakeprice-Regular.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Cafe24Dangdanghae';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.2/Cafe24Dangdanghae.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* 전체 스타일 폰트 */
+* {
+    font-family: "Wemakeprice-Regular";
+}
+
+a {
+    color: black !important;
+    text-decoration: none !important;
+}
+
+.header_logo {
+    font-size: 2.5em;
+    text-align: center;
+    padding: 30px;
+}
+
+.main_auth_btn {
+    text-align: right;
+    margin: 20px;
+    margin-right: 100px;
+}
+
+.header_logo a:link {
+    color: black;
+    text-decoration: none;
+}
+
+.header_logo a:visited {
+    color: black;
+    text-decoration: none;
+}
+
+.header_logo a:hover {
+    color: black;
+    text-decoration: none;
+}
+
+
+/* footer css */
+footer {
+    padding: 30px;
+    padding-left: 200px;
+    padding-right: 200px;
+    background-color: #f8f9fa;
+    color: #868e96;
+    justify-content: center;
+}
+
+.footer_top {
+    display: flex;
+    flex-direction: row;
+}
+
+.footer_name {
+    padding: 10px;
+    flex-grow: 11;
+}
+
+.footer_sns {
+    flex-grow: 1;
+}
+
+.footer_sns>.footer_icon {
+    padding: 10px;
+}
+
+.footer_info {
+    font-family: "wema";
+}
+
+.footer_copyright {
+    color: #ced4da;
+}
+
+/*-----login.html css------*/
+.needInquiry {
+    color: red;
+  }
+
+  .login_input {
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    margin: 20px;
+  }
+
+  .login_input > input {
+    margin: 15px;
+  }
+
+  .login_content {
+    background-image: url("img/login1.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-sizing: border-box;
+    padding-top: 100px;
+    padding-bottom: 300px;
+    padding-top: 100px;
+    background-size: contain;
+  }
+
+  .login_header {
+    margin: 20px;
+  }

@@ -1,0 +1,179 @@
+<style>
+    .listDesign {
+        text-align: center;
+        vertical-align: middle;
+    }
+    .listDesign:hover {
+        color: white;
+        background-color: #00B0F0;
+        cursor: pointer;
+    }
+    .table td{
+        vertical-align: middle;
+    }
+    ul>li {
+        list-style: none;
+        padding: 2%;
+    }
+    .needInquiry{
+        color:red;
+        font-weight: bold;
+    }
+    .completeInquiry{
+        color:cornflowerblue;
+        font-weight: bold;
+    }
+</style>
+
+<div class="card">
+    <div class="card-header">
+        사방 게시물 목록 
+    </div>
+    <div class="card-body">
+        <div>
+            <div class="mb-3">
+                <select ng-model="sabang_sort">
+                    <option ng-repeat="sabang_sort in sabang_sorts">{{sabang_sort}}</option>
+                </select>
+            </div>
+        </div>
+        <div>
+            <table ng-show="sabang_sort=='구매수'"  class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>대표 이미지</th>
+                        <th>사방패키지 이름</th>
+                        <th>총 문의수</th>
+                        <th>답변 필요한 문의수</th>
+                        <th>패키지상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-cloak ng-repeat="sabang in sabangBuyList" class="listDesign" ng-click="getInquiryList(1, sabang.sabang_id)">
+                        <td><img src="{{sattachUrl(sabang.sabang_id)}}"width="100px" height="100px"></td>
+                        <td>{{sabang.sabang_name}}</td>
+                        <td>{{sabang.totalInquiryNum}}</td>
+                        <td class="{{sabang.noAnsInquiryNum>0?'needInquiry':'completeInquiry'}}">{{sabang.noAnsInquiryNum}}</td>
+                        <td>{{sabang.sabang_state}} </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getSabangList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getSabangList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getSabangList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getSabangList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getSabangList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table ng-show="sabang_sort=='조회수'"  class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>대표 이미지</th>
+                        <th>사방패키지 이름</th>
+                        <th>총 문의수</th>
+                        <th>답변 필요한 문의수</th>
+                        <th>패키지상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-cloak ng-repeat="sabang in sabangViewList" class="listDesign" ng-click="getInquiryList(1, sabang.sabang_id)">
+                        <td><img src="{{sattachUrl(sabang.sabang_id)}}"width="100px" height="100px"></td>
+                        <td>{{sabang.sabang_name}}</td>
+                        <td>{{sabang.totalInquiryNum}}</td>
+                        <td class="{{sabang.noAnsInquiryNum>0?'needInquiry':'completeInquiry'}}">{{sabang.noAnsInquiryNum}}</td>
+                        <td>{{sabang.sabang_state}} </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getSabangList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getSabangList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getSabangList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getSabangList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getSabangList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table ng-show="sabang_sort=='높은 가격순'"  class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>대표 이미지</th>
+                        <th>사방패키지 이름</th>
+                        <th>총 문의수</th>
+                        <th>답변 필요한 문의수</th>
+                        <th>패키지상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-cloak ng-repeat="sabang in sabangHighList" class="listDesign" ng-click="getInquiryList(1, sabang.sabang_id)">
+                        <td><img src="{{sattachUrl(sabang.sabang_id)}}"width="100px" height="100px"></td>
+                        <td>{{sabang.sabang_name}}</td>
+                        <td>{{sabang.totalInquiryNum}}</td>
+                        <td class="{{sabang.noAnsInquiryNum>0?'needInquiry':'completeInquiry'}}">{{sabang.noAnsInquiryNum}}</td>
+                        <td>{{sabang.sabang_state}} </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getSabangList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getSabangList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getSabangList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getSabangList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getSabangList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            <table ng-show="sabang_sort=='낮은 가격순'"  class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>대표 이미지</th>
+                        <th>사방패키지 이름</th>
+                        <th>총 문의수</th>
+                        <th>답변 필요한 문의수</th>
+                        <th>패키지상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-cloak ng-repeat="sabang in sabangLowList" class="listDesign" ng-click="getInquiryList(1, sabang.sabang_id)">
+                        <td><img src="{{sattachUrl(sabang.sabang_id)}}"width="100px" height="100px"></td>
+                        <td>{{sabang.sabang_name}}</td>
+                        <td>{{sabang.totalInquiryNum}}</td>
+                        <td class="{{sabang.noAnsInquiryNum>0?'needInquiry':'completeInquiry'}}">{{sabang.noAnsInquiryNum}}</td>
+                        <td>{{sabang.sabang_state}} </td>
+                    </tr>
+                    <tr>
+                        <td colspan="7" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getSabangList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getSabangList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getSabangList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getSabangList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getSabangList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>

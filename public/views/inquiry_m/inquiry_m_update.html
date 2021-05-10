@@ -1,0 +1,63 @@
+<style>
+    .needInquiry{
+        color:red;
+        font-weight: bold;
+    }
+    .needInquiry:focus{
+        color:red;
+        font-weight: bold;
+    }
+    .completeInquiry{
+        color: #00B0F0;
+        font-weight: bold;
+    }
+    .completeInquiry:focus{
+        color: #00B0F0;
+        font-weight: bold;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        문의 답변하기
+    </div>
+    <div class="card-body">
+        <form name="inquiryForm" novalidate ng-submit="updateAnswer()">
+            <div class="form-group">
+                <label>문의유형:</label>
+                <input class="form-control" ng-value="inquiry.inquiry_type" readonly/>
+            </div>
+            <div class="form-group">
+                <label>문의상태:</label>
+                <input class="form-control {{inquiry.inquiry_ansstate==='대기중'?'needInquiry':'completeInquiry'}}" ng-value="inquiry.inquiry_ansstate" readonly/>
+            </div>
+            <div class="form-group">
+                <label>문의제목:</label>
+                <input class="form-control" ng-value="inquiry.inquiry_title" readonly/>
+            </div>
+            <div class="form-group">
+                <label>문의자:</label>
+                <input class="form-control" ng-value="inquiry.inquiry_writer" readonly/>
+            </div>
+            <div class="form-group">
+                <label>문의날짜:</label>
+                <input class="form-control" ng-value="inquiry.inquiry_date | date:'yyyy.MM.dd'" readonly/>
+            </div>
+            <div class="form-group">
+                <label>문의내용:</label>
+                <input class="form-control" ng-value="inquiry.inquiry_explain" readonly/>
+            </div>
+            <div class="form-group">
+                <label>답변내용:</label>
+                <div class="error" ng-show="inquiryForm.anscontent.$invalid && inquiryForm.anscontent.$dirty">
+                    <span ng-show="inquiryForm.anscontent.$error.required">
+                        <div class="needInquiry">답변 내용을 지울 수 없습니다.</div>
+                    </span>
+                </div>
+                <textarea name="anscontent" class="form-control" ng-model="inquiry.inquiry_anscontent" ng-required="true"></textarea>
+                
+            </div>
+            <button type="submit" class="btn btn-sm" style="background-color: #00B0F0; color: white;" ng-disabled="inquiryForm.$invalid">답변 등록</button>
+            <button type="button" class="btn btn-sm" style="background-color: #FB140D; color: white;" ng-click="getInquiryList(1, inquiry.inquiry_sabangid)">취소</button>
+        </form>
+    </div>
+</div>

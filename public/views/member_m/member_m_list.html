@@ -1,0 +1,116 @@
+<style>
+    .listDesign {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .listDesign:hover {
+        color: white;
+        background-color: #00B0F0;
+    }
+    .table td{
+        vertical-align: middle;
+    }
+    ul>li {
+        list-style: none;
+        padding: 2%;
+    }
+    .deleteBtn:hover{
+        color: white;
+        background-color:red;
+        cursor: pointer;
+    }
+    #deleteBtn {
+        width: 100%;
+        height: 100%;
+    }
+    #deleteBtn:hover{
+        color: white;
+    }
+    .needInquiry{
+        color:red;
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-header">
+        회원 조회
+    </div>
+    <div class="card-body">
+        <form name="searchForm" class="form-inline my-2 my-lg-0" novalidate ng-submit="searchMember(1, target)">
+            <input id="searchInput" class="form-control mr-sm-2" name="target" ng-model="target" type="search"  ng-required="true" placeholder="아이디 또는 이름">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit" ng-disabled="searchForm.$invalid">Search</button>
+            <button class="ml-3 btn btn-outline-warning my-2 my-sm-0" ng-click="getList(1)" type="button">전체</button>
+        </form>
+        <div class="error" ng-show="searchForm.target.$invalid && searchForm.target.$dirty">
+            <span class="needInquiry ml-4 mt-2" ng-show="searchForm.target.$error.required"> 아래의 표에 있는 아이디 또는 이름을 검색하세요</span>
+        </div>
+    </div> 
+    <div class="card-header">
+        회원 목록
+    </div>
+    <div class="card-body">
+         <div ng-if="members.length == 0">  
+            <div class="noInquiryMsg">검색 결과가 없습니다</div>
+        </div>
+        <div ng-if="members.length > 0">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>아이디</th>
+                        <th>이메일</th>
+                        <th>이름</th>
+                        <th>핸드폰</th>
+                        <th>별명</th>
+                        <th>가입날짜</th>
+                        <th>탈퇴</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="member in members" class="listDesign" ng-click="read(member.member_email)">
+                        <td>{{member.member_id}}</td>
+                        <td>{{member.member_email}}</td>
+                        <td>{{member.member_name}}</td>
+                        <td>{{member.member_phone}}</td>
+                        <td>{{member.member_nickname}}</td>
+                        <td>{{member.join_date | date:"yyyy.MM.dd"}}</td> 
+                        <td class="deleteBtn">
+                            <button id="deleteBtn" class="btn btn-sm" type="button"
+                                ng-click="checkDelete(member.member_id,member.member_email)">회원 탈퇴</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="search == 'all'">
+                        <td colspan="7" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="search != 'all'">
+                        <td colspan="7" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="searchMember(1, target)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="searchMember(pager.startPageNo-1, target)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="searchMember(i, target)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="searchMember(pager.endPageNo+1, target)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="searchMember(pager.totalPageNo, target)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

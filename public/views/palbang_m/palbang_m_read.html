@@ -1,0 +1,109 @@
+<style>
+    .palbang_detail_header {
+        display: flex;
+        flex-direction: column;
+        margin: 1%;
+    }
+
+    .palbang_detail_header_btn {
+        display: flex;
+        flex-direction: row;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+        border-bottom-color: black;
+    }
+
+    .palbang_detail_header_content {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .palbang_detail_content_mainImg {
+        width: 24%;
+    }
+
+    .palbang_detail_header_detail {
+        margin-left: 1%;
+    }
+
+    .palbang_detail_content_mainContent {
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+        margin-left: 5%;
+
+    }
+
+    .palbang_detail_content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .palbang_detail_content_space {
+        display: flex;
+        flex-direction: row;
+        margin: 3%;
+    }
+
+    .palbang_detail_content_spaceImg {
+        width: 24%;
+    }
+
+    .palbang_detail_content_space_txt {
+        margin-left: 5%;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        <div class="palbang_detail_header">
+            <div class="palbang_detail_header_btn">
+                <button class="btn btn-sm m-3" style="background-color: #00ADF9; color: white;" ng-click="getList(pager.pageNo)">목록</button>
+                <button class="btn btn-sm m-3" style="background-color: #FB140D; color:  white;" ng-click="checkDelete(palbang.palbang_id,palbang.palbang_title,pager.pageNo)">삭제</button>
+            </div>
+            <div class="palbang_detail_header_content m-3">
+                <div class="palbang_detail_content_mainImg">
+                    <img style="width: 100%;" src="{{palattachUrl(palbang.palbang_id)}}">
+                </div>
+                <div class="palbang_detail_content_mainContent">
+
+                    <div class="palbang_detail_header_detail">
+                        <h4>제목: {{palbang.palbang_title}}</h4>
+                        <br/>
+                    </div>
+                    <div class="palbang_detail_header_detail">
+                        <h6>작성자: {{palbang.palbang_nickname}}</h6>
+                        <br/>
+                    </div>
+                    <div class="palbang_detail_header_detail">
+                        <h6>작성일: {{palbang.palbang_date | date:"yyyy.MM.dd"}}</h6>
+                        <br/>
+                    </div>
+                    <div class="palbang_detail_header_detail">
+                        <h6>좋아요수: {{palbang.palbang_likecount}}</h6>
+                        <br/>
+                    </div>
+                    <div class="palbang_detail_header_detail">
+                        <h6>조회수: {{palbang.palbang_viewcount}}</h6>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="palbang_detail_content">
+            <hr />
+
+            <div class="palbang_detail_content_space" ng-repeat="palbangdetail in palbanglist">
+                <div class="palbang_detail_content_spaceImg">
+                    <img style="width: 400px;"
+                        src="{{palDattachUrl(palbangdetail.palbang_detailno)}}">
+                </div>
+                <div class="palbang_detail_content_space_txt">
+                    <p>{{palbangdetail.palbang_explain}}</p>
+                </div>
+                <br />
+            </div>
+        </div>
+    </div>
+</div>

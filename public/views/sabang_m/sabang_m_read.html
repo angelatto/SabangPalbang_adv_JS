@@ -1,0 +1,144 @@
+<style>
+    .sabang_header {
+        display: flex;
+        flex-direction: column;
+        margin: 1%;
+    }
+
+    .sabang_header_btn {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    .sabang_header_content {
+        display: flex;
+        flex-direction: row;
+    }
+
+    .sabang_detail_content_mainImg {
+        width: 24%;
+    }
+
+    .sabang_header_detail {
+        margin-left: 1%;
+    }
+
+    .sabang_detail_content_mainContent {
+        display: flex;
+        flex-direction: column;
+        width: 75%;
+        margin-left: 5%;
+
+    }
+
+    .sabang_detail_content {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .sabang_detail_content_space {
+        display: flex;
+        flex-direction: row;
+        margin: 3%;
+    }
+
+    .sabang_detail_content_spaceImg {
+        width: 24%;
+    }
+
+    .sabang_detail_content_space_txt {
+        margin-left: 5%;
+    }
+</style>
+<div class="card">
+    <div class="card-header">
+        <div class="sabang_header">
+            <div class="sabang_header_btn d-flex">
+                <div>
+                    <button class="btn btn-sm m-3" style="background-color: #00ADF9; color: white; width: 60px;"
+                        ng-click="getList(pager.pageNo)">목록</button>
+                </div>
+                <div class="d-flex flex-row">
+                    <div>
+                        <button class="btn btn-sm m-3" style="background-color: #0BE324; color: white; width: 60px;"
+                            ng-click="updateSabangForm(sabang.sabang_id)">수정</button>
+                    </div>
+                    <div class="flex-grow-1 justify-content-end">
+                        <button class="btn btn-sm m-3" style="background-color: #FB140D; color: white; width: 60px;"
+                            ng-click="checkSabang(sabang.sabang_id,sabang.sabang_name,pager.pageNo)">삭제</button>
+                    </div>
+                </div>
+            </div>
+            <div class="sabang_header_content m-3">
+                <div class="sabang_detail_content_mainImg">
+                    <img style="width: 400px; height: 400px;" src="{{sattachUrl(sabang.sabang_id)}}">
+                </div>
+                <div class="sabang_detail_content_mainContent">
+
+                    <div class="sabang_header_detail">
+                        <h4>사방 패키지 이름: {{sabang.sabang_name}}</h4>
+                        <br />
+                    </div>
+                    <div class="sabang_header_detail">
+                        <h6>원 가: {{sabang.sabang_price}}</h6>
+                        <br />
+                    </div>
+                    <div class="sabang_header_detail">
+                        <h6>할인가: {{sabang.sabang_saleprice}}</h6>
+                        <br />
+                    </div>
+                    <div class="sabang_header_detail">
+                        <h6>구매수: {{sabang.sabang_buycount}}</h6>
+                        <br />
+                    </div>
+                    <div class="sabang_header_detail">
+                        <h6>조회수: {{sabang.sabang_viewcount}}</h6>
+                        <br />
+                    </div>
+                    <div class="sabang_header_detail">
+                        <h6>판매 상태: {{sabang.sabang_state}}</h6>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="card-body">
+        <div class="sabang_detail_content">
+            <hr />
+
+            <div class="sabang_detail_content_space" ng-repeat="product in productlist">
+
+                <div style="display: flex; flex-direction: row; width: 70%;">
+                    <div class="sabang_detail_content_spaceImg">
+                        <img style="width: 400px; height: 400px;" src="{{pattachUrl(product.product_id)}}">
+                    </div>
+                    <div class="sabang_detail_content_space_txt" style="margin-left: 400px;">
+                        <p>상품이름: {{product.product_name}}</p>
+                        <p>상품가격: {{product.product_price}}</p>
+                        <p>상품 구매수: {{product.product_buycount}}</p>
+                        <p>상품설명1: {{product.product_explain1}}</p>
+                        <p>상품설명2: {{product.product_explain2}}</p>
+                    </div>
+                </div>
+                <div class="sabang_header_btn d-flex" style="width: 20%;">
+                    <div>
+                        <button class="btn btn-sm m-3" style="background-color: #0BE324; color: white; width: 60px;"
+                            ng-click="updateProductForm(product)">수정</button>
+                    </div>
+                    <div class="flex-grow-1 justify-content-end">
+                        <button class="btn btn-sm m-3" style="background-color: #FB140D; color: white; width: 60px;"
+                            ng-click="checkProduct(product)">삭제</button>
+                    </div>
+                </div>
+                <br />
+            </div>
+            <div style="justify-content: center; display: flex;">
+                <button class="btn btn-sm m-3"
+                    style="background-color: #00ADF9; color: white; width: 110px; height: 50px; font-size: medium;"
+                    ng-click="createProductForm(sabang)">상품 추가</button>
+            </div>
+        </div>
+    </div>
+</div>

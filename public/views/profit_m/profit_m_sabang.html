@@ -1,0 +1,76 @@
+<div class="card">
+    <div class="card-header">
+        사방 & 상품 실적
+    </div>
+    <div class="card-body">
+        <div>
+            <div class="card">
+                <div class="card-header" style="text-align: center;">
+                    <img src="{{sattachUrl(sabang.sabang_id)}}" style="width: 250px; height: 250px;" />
+                </div>
+                <div class="card-body">
+                    <div>
+
+                        <div>
+                            사방이름: {{sabang.sabang_name}}
+                        </div>
+                        <div>
+                            사방가격: {{sabang.sabang_price}}
+                        </div>
+                        <div>
+                            판매량: {{sabang.sabang_buycount}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header" style="text-align: center;">
+                    <img src="{{pattachUrl(product.product_id)}}" style="width: 250px; height: 250px;" />
+                </div>
+                <div class="card-body">
+                    <div>
+
+                        <div>
+                            상품이름: {{product.product_name}}
+                        </div>
+                        <div>
+                            상품가격: {{product.product_price}}
+                        </div>
+                        <div>
+                            판매량: {{product.product_buycount}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="card mt-2">
+    <div class="card-header">
+        인기 팔방 게시물
+    </div>
+    <div class="card-body">
+        <div class="card">
+            <div class="card-header" style="text-align: center;">
+                <img src="{{palattachUrl(palbang.palbang_id)}}" style="width: 250px; height: 250px;" />
+            </div>
+            <div class="card-body">
+                <div>
+                    <div>
+                        팔방이름: {{palbang.palbang_title}}
+                    </div>
+                    <div>
+                        작성자: {{palbang.palbang_nickname}}
+                    </div>
+                    <div>
+                        좋아요수: {{palbang.palbang_likecount}}
+                    </div>
+                    <div>
+                        조회수: {{palbang.palbang_viewcount}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

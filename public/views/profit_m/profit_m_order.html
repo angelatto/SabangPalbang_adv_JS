@@ -1,0 +1,110 @@
+<div class="card">
+    <div class="card-header">
+        주문 실적
+    </div>
+    <div class="card-body">
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <div class="mt-2">
+                        <h5>누적 판매량</h5>
+                    </div>
+                </div>
+                <div class="card-body">
+
+                    <div ng-repeat="sumtotal in sumtotalprice">
+                        <b>총 판매금액:</b> {{sumtotal | number:0}}원
+
+                    </div>
+                    <div ng-repeat="totalc in totalCount">
+                        <b>총 주문건수:</b> {{totalc}}개
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    
+                    <div class="mb-3 mt-1"> 
+                          <h5>최근 3월 단위 판매량</h5>
+                    </div>
+
+                    <div class="d-flex flex-row">
+                        <div ng-repeat="mom in outputThreeMonth">
+                            <b>{{mom}}월 판매금액:</b> 
+                        </div>
+                        <div class="ml-2" ng-repeat="total in totalprice3">
+                            {{total | number: 0}}원
+                          </div>
+
+                    </div>
+
+                    <div class="d-flex flex-row">
+                        <div ng-repeat="mom in outputTwoMonth">
+                            <b>{{mom}}월 판매금액:</b> 
+                        </div>
+                        <div class="ml-2" ng-repeat="total in totalprice2">
+                            {{total | number: 0}}원
+                          </div>
+
+                    </div>
+
+                    <div class="d-flex flex-row">
+                        <div ng-repeat="mom in outputOneMonth">
+                            <b>{{mom}}월 판매금액:</b> 
+                        </div>
+                        <div class="ml-2" ng-repeat="total in totalprice1">
+                            {{total | number: 0}}원
+                          </div>
+
+                    </div>
+                    <div ng-repeat="threetotal in threeTotalCount">
+                        <b>최근 3달간 판매금액:</b> {{threetotal | number:0}}원
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div>
+                        <div style="display: flex; flex-direction: column; text-align: center; width: 100%;">
+                            <b class="ml-5">최근 3달 판매금액</b>
+                            <div style="width: 100%;">
+                                <!-- 막대그래프 -->
+                                <div style="width: 100%; margin-bottom: 1%;">
+                                    <canvas class="chart chart-bar" chart-data="totalPriceData" chart-labels="monthsLabels" chart-colors="color2"
+                                        chart-series="priceSeries">
+                                    </canvas>
+                                </div>
+                                <div class="mt-5">
+                                    <b class="ml-5">최근 3달 주문 수</b>
+                                    <canvas class="chart chart-bar" chart-data="totalNumberData" chart-labels="monthsLabels" chart-colors="color3"
+                                        chart-series="numberSeries">
+                                    </canvas>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mt-2">결제방식</h5>
+                </div>
+                <div class="card-body">
+                    <b>사방팔방 결제방식 원형도표</b>
+                    <div class="ml-5" style="width: 100%;">
+                       
+                        <!-- 원형도표 -->
+                        
+
+                        <canvas class=" chart chart-pie"
+                                chart-data="payData" chart-labels="payLabels" chart-colors="colors">
+                        </canvas> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

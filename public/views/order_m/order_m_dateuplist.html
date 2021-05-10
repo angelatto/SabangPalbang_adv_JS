@@ -1,0 +1,87 @@
+<!-- <style>
+    .listDesign {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .listDesign:hover {
+        color: white;
+        background-color: #00B0F0;
+        cursor: pointer;
+    }
+    /* td > a > img {
+        width:120px;
+    } */
+    .table td{
+        vertical-align: middle;
+    }
+    ul>li {
+        list-style: none;
+        padding: 2%;
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-header">
+        주문 게시물 목록
+    </div>
+    <div class="card-body">
+
+        <div class="mb-3 d-flex flex-row">
+            <div>
+                <select ng-model="kindVal">
+                    <option ng-repeat="kindVal in kindList">{{kindVal}}</option>
+                </select>
+            </div>
+            <div ng-show="kindVal=='배송상태'">
+                <select ng-model="order_state">
+                    <option ng-repeat="order_state in order_states">{{order_state}}</option>
+                </select>
+            </div>
+            <div ng-show="kindVal=='날짜'">
+                <select ng-model="date_state">
+                    <option ng-repeat="date_state in date_states">{{date_state}}</option>
+                </select>
+            </div>         
+        </div>
+
+        <div ng-show="date_state=='오래된 순'">
+            <table class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>주문번호</th>
+                        <th>주문자 ID</th>
+                        <th>핸드폰</th>
+                        <th>주문날짜</th>
+                        <th>배송상태</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="orde in dateUpList" class="listDesign" ng-click="read(orde.order_id)">
+                        <td>{{orde.order_id}}</td>
+                        <td>{{orde.order_memberid}}</td>
+                        <td>{{orde.order_phone}}</td>
+                        <td>{{orde.order_date | date:"yyyy.MM.dd HH:mm:ss"}}</td>
+                        <td>{{orde.order_state}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="5" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div> -->

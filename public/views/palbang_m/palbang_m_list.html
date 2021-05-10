@@ -1,0 +1,188 @@
+<style>
+    .listDesign {
+        text-align: center;
+        vertical-align: middle;
+    }
+
+    .listDesign:hover {
+        color: white;
+        background-color: #00B0F0;
+        cursor: pointer;
+    }
+    /* td > a > img {
+        width:120px;
+    } */
+    .table td{
+        vertical-align: middle;
+    }
+    ul>li {
+        list-style: none;
+        padding: 2%;
+    }
+</style>
+
+
+<div class="card">
+    <div class="card-header">
+        팔방 게시물 목록
+    </div>
+    <div class="card-body">
+
+        <div class="mb-3">
+            <select ng-model="palbang_sort">
+                <option ng-repeat="palbang_sort in palbang_sorts">{{palbang_sort}}</option>
+            </select>
+        </div>
+
+        <div>
+            <table ng-show="palbang_sort=='좋아요 수'" class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>대표 이미지</th>
+                        <th>제목</th>
+                        <th>별명</th>
+                        <th>날짜</th>
+                        <th>좋아요 수</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pal in palbangLikeList" class="listDesign" ng-click="read(pal.palbang_id)">
+                        <td><img src="{{palattachUrl(pal.palbang_id)}}"width="100px" height="100px"></td>
+                        <td>{{pal.palbang_title}}</td>
+                        <td>{{pal.palbang_nickname}}</td>
+                        <td>{{pal.palbang_date | date:"yyyy.MM.dd"}}</td>
+                        <td>{{pal.palbang_likecount}}</td>
+                        <td>{{pal.palbang_viewcount}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table ng-show="palbang_sort=='조회수'" class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>대표 이미지</th>
+                        <th>제목</th>
+                        <th>별명</th>
+                        <th>날짜</th>
+                        <th>좋아요 수</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pal in palbangViewList" class="listDesign" ng-click="read(pal.palbang_id)">
+                        <td><img src="{{palattachUrl(pal.palbang_id)}}"width="100px" height="100px"></td>
+                        <td>{{pal.palbang_title}}</td>
+                        <td>{{pal.palbang_nickname}}</td>
+                        <td>{{pal.palbang_date | date:"yyyy.MM.dd"}}</td>
+                        <td>{{pal.palbang_likecount}}</td>
+                        <td>{{pal.palbang_viewcount}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <table ng-show="palbang_sort=='최신 순'" class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>대표 이미지</th>
+                        <th>제목</th>
+                        <th>별명</th>
+                        <th>날짜</th>
+                        <th>좋아요 수</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pal in palbangNewList" class="listDesign" ng-click="read(pal.palbang_id)">
+                        <td><img src="{{palattachUrl(pal.palbang_id)}}"width="100px" height="100px"></td>
+                        <td>{{pal.palbang_title}}</td>
+                        <td>{{pal.palbang_nickname}}</td>
+                        <td>{{pal.palbang_date | date:"yyyy.MM.dd"}}</td>
+                        <td>{{pal.palbang_likecount}}</td>
+                        <td>{{pal.palbang_viewcount}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+            <table ng-show="palbang_sort=='오래된 순'" class="table table-bordered ">
+                <thead>
+                    <tr class="thead-dark" style="text-align: center;">
+                        <th>대표 이미지</th>
+                        <th>제목</th>
+                        <th>별명</th>
+                        <th>날짜</th>
+                        <th>좋아요 수</th>
+                        <th>조회수</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="pal in palbangOldList" class="listDesign" ng-click="read(pal.palbang_id)">
+                        <td><img src="{{palattachUrl(pal.palbang_id)}}"width="100px" height="100px"></td>
+                        <td>{{pal.palbang_title}}</td>
+                        <td>{{pal.palbang_nickname}}</td>
+                        <td>{{pal.palbang_date | date:"yyyy.MM.dd"}}</td>
+                        <td>{{pal.palbang_likecount}}</td>
+                        <td>{{pal.palbang_viewcount}}</td>
+                    </tr>
+                    <tr>
+                        <td colspan="6" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="getList(1)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
+                                ng-click="getList(pager.startPageNo-1)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="getList(i)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
+                                ng-click="getList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="getList(pager.totalPageNo)">맨끝</button>
+                        </td>
+                    </tr>
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</div>

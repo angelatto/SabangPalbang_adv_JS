@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-header">
+        사방 상품 수정페이지
+    </div>
+    <div class="card-body">
+        <div>
+            <div class="form-group">
+                <label>패키지 이름:</label>
+                <input class="form-control" ng-model="sabang.sabang_name" readonly/>
+                <input type="hidden" ng-model="product.sabang_id"/>
+            </div>
+            <div class="form-group">
+                <label>상품 이름:</label>
+                <input class="form-control" ng-model="product.product_name" />
+            </div>
+            <div class="form-group">
+                <label>가격:</label>
+                <input class="form-control" ng-model="product.product_price"/>
+            </div>
+            <div class="form-group">
+                <label>설명1:</label>
+                <textarea class="form-control" ng-model="product.product_explain1"></textarea>
+            </div>
+            <div class="form-group">
+                <label>설명2:</label>
+                <textarea class="form-control" ng-model="product.product_explain2"></textarea>
+            </div>
+            <div class="form-group">
+                <label>상품사진 첨부:</label>
+                <br/>
+                <img src="{{pattachUrl(product.product_id)}}" width="200" height="200" class="mb-2"/>
+                <input id="pattach" type="file" class="form-control-file" />
+            </div>
+            <button class="btn btn-sm" style="background-color: #0BE324; color: white;" ng-click="updateProduct(product)">수정</button>
+            <button class="btn btn-sm" style="background-color: #FB140D; color:  white;" ng-click="cancelUpdate(sabang.sabang_id)">취소</button>        
+        </div>
+    </div>
+</div>
