@@ -80,32 +80,46 @@
                                 ng-click="checkDelete(member.member_id,member.member_email)">회원 탈퇴</button>
                         </td>
                     </tr>
-                    <tr ng-show="search == 'all'">
+                    <tr ng-show="search == 'all' && pager_all.totalGroupNo > 1">
                         <td colspan="7" style="text-align: center;">
                             <button class="btn btn-outline-primary btn-sm" ng-click="getList(1)">처음</button>
-                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
-                                ng-click="getList(pager.startPageNo-1)">이전</button>
+                            <button class="btn btn-sm" ng-show="pager_all.groupNo>1"
+                                ng-click="getList(pager_all.startPageNo-1)">이전</button>
                             <button ng-repeat="i in pageRange"
-                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                class="btn btn-sm {{(pager_all.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
                                 ng-click="getList(i)">{{i}}</button>
-                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
-                                ng-click="getList(pager.endPageNo+1)">다음</button>
+                            <button class="btn btn-sm" ng-show="pager_all.groupNo < pager_all.totalGroupNo"
+                                ng-click="getList(pager_all.endPageNo+1)">다음</button>
                             <button class="btn btn-outline-primary btn-sm"
-                                ng-click="getList(pager.totalPageNo)">맨끝</button>
+                                ng-click="getList(pager_all.totalPageNo)">맨끝</button>
                         </td>
                     </tr>
-                    <tr ng-show="search != 'all'">
+                    <tr ng-show="search == 'id' && pager_id.totalGroupNo > 1 ">
                         <td colspan="7" style="text-align: center;">
                             <button class="btn btn-outline-primary btn-sm" ng-click="searchMember(1, target)">처음</button>
-                            <button class="btn btn-sm" ng-show="pager.groupNo>1"
-                                ng-click="searchMember(pager.startPageNo-1, target)">이전</button>
+                            <button class="btn btn-sm" ng-show="pager_id.groupNo>1"
+                                ng-click="searchMember(pager_id.startPageNo-1, target)">이전</button>
                             <button ng-repeat="i in pageRange"
-                                class="btn btn-sm {{(pager.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                class="btn btn-sm {{(pager_id.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
                                 ng-click="searchMember(i, target)">{{i}}</button>
-                            <button class="btn btn-sm" ng-show="pager.groupNo < pager.totalGroupNo"
-                                ng-click="searchMember(pager.endPageNo+1, target)">다음</button>
+                            <button class="btn btn-sm" ng-show="pager_id.groupNo < pager_id.totalGroupNo"
+                                ng-click="searchMember(pager_id.endPageNo+1, target)">다음</button>
                             <button class="btn btn-outline-primary btn-sm"
-                                ng-click="searchMember(pager.totalPageNo, target)">맨끝</button>
+                                ng-click="searchMember(pager_id.totalPageNo, target)">맨끝</button>
+                        </td>
+                    </tr>
+                    <tr ng-show="search == 'name' && pager_name.totalGroupNo > 1">
+                        <td colspan="7" style="text-align: center;">
+                            <button class="btn btn-outline-primary btn-sm" ng-click="searchMember(1, target)">처음</button>
+                            <button class="btn btn-sm" ng-show="pager_name.groupNo>1"
+                                ng-click="searchMember(pager_name.startPageNo-1, target)">이전</button>
+                            <button ng-repeat="i in pageRange"
+                                class="btn btn-sm {{(pager_name.pageNo==i)?'btn-primary':'btn-light'}} {{!$last?'mr-1':''}}"
+                                ng-click="searchMember(i, target)">{{i}}</button>
+                            <button class="btn btn-sm" ng-show="pager_name.groupNo < pager_name.totalGroupNo"
+                                ng-click="searchMember(pager_name.endPageNo+1, target)">다음</button>
+                            <button class="btn btn-outline-primary btn-sm"
+                                ng-click="searchMember(pager_name.totalPageNo, target)">맨끝</button>
                         </td>
                     </tr>
                 </tbody>

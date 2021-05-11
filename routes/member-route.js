@@ -14,12 +14,12 @@ router.get("", async (req, res, next)=> {
         const totalRows = await memberService.totalRows();
         console.log("totalRows: ", totalRows);
 
-        const pager = paging.init(10, 5, pageNo, totalRows);
-        const members = await memberService.list(pager);
+        const pager_all = paging.init(10, 5, pageNo, totalRows);
+        const members = await memberService.list(pager_all);
         
         // 응답 JSON 
         res.status(200);
-        res.json({pager, members});
+        res.json({pager_all, members});
     }catch(error){
         next(error);
     }
@@ -45,12 +45,12 @@ router.get("/id/:target", async (req, res, next) => {
         const searchMethod = {column: "id",target};
         const totalRows = await memberService.totalRows(searchMethod);
 
-        const pager = paging.init(5, 5, pageNo, totalRows);
-        const members = await memberService.listById(pager, target);
+        const pager_id = paging.init(10, 5, pageNo, totalRows);
+        const members = await memberService.listById(pager_id, target);
         
         // 응답 JSON 
         res.status(200);
-        res.json({pager, members});
+        res.json({pager_id, members});
     }catch(error){
         next(error);
     }
@@ -65,12 +65,12 @@ router.get("/name/:target", async (req, res, next) => {
         const searchMethod = {column: "name",target};
         const totalRows = await memberService.totalRows(searchMethod);
 
-        const pager = paging.init(5, 5, pageNo, totalRows);
-        const members = await memberService.listByName(pager, target);
+        const pager_name = paging.init(10, 5, pageNo, totalRows);
+        const members = await memberService.listByName(pager_name, target);
         
         // 응답 JSON 
         res.status(200);
-        res.json({pager, members});
+        res.json({pager_name, members});
     }catch(error){
         next(error);
     }

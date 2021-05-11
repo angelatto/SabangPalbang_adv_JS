@@ -62,7 +62,7 @@ angular.module("app")
         $scope.getInquiry = (inquiry_id) => {
             inquiryService.inquiry(inquiry_id)
                 .then((response) => {
-                    $scope.inquiry = response.data;
+                    $scope.inquiry = response.data.inquiry;
                     $scope.view = "inquiry";
                 });
         };
@@ -76,7 +76,8 @@ angular.module("app")
             inquiryService.answer(inquiryJson)
                 .then((response) => { 
                     // 응답이 성공하면 inquiry_id를 응답으로 받는다. 
-                    $scope.getInquiry(response.data);
+                    console.log("Angular inquiry 응답 결과: ",response.data.inquiry_id);
+                    $scope.getInquiry(response.data.inquiry_id);
                     $window.alert("답변이 정상적으로 등록되었습니다");
                 });
         };

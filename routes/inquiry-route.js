@@ -56,14 +56,11 @@ router.get("/sattach/:sabang_id", async (req, res, next)=> {
 
 // 사방에 대한 문의 목록 
 router.get("/:sid", async (req, res, next)=> {
-    console.log("사방에 대한 문의 목록 진입------------");
     try{
         const sid = parseInt(req.params.sid);
         const ansstate = req.param.ansstate;
         const pageNo = req.query.pageNo? parseInt(req.query.pageNo) : 1;
-       
         const totalRows = await inquiryService.totalRows(sid);
-        console.log("totalRows: ", totalRows)
         const pager = paging.init(10, 5, pageNo, totalRows);
         const inquirylist = await inquiryService.list(pager, sid);
     
@@ -73,4 +70,42 @@ router.get("/:sid", async (req, res, next)=> {
         next(error);
     }
 });
+
+// 하나의 문의 내용 읽기 
+router.get("/inquiry/:inquiry_id", async (req, res, next) => {
+    try{
+        console.log("여기로 들어오긴함 근데 아이디? ", req.params.inquiry_id);
+        const inquiry_id = parseInt(req.params.inquiry_id);
+        const inquiry = await inquiryService.getInquiry(inquiry_id);
+        // 응답 JSON 
+        res.json({inquiry});
+    }catch(error){
+        next(error);
+    }
+});
+
+// 문의 삭제 
+router.delete("/:inquiry_id", async (req, res, next) => {
+    try{
+        const inquiry_id = parseInt(req.params.inquiry_id);
+        await inquiryService.delete(inquiry_id);
+        // 삭제 성공 시 응답할 데이터는 없음
+        res.end();
+    }catch(error){
+        next(error);
+    }
+});
+
+// 문의 답변 남기기 
+router.put("", async (req, res, next) => {
+    try{
+        const inquiry = req.body;
+        await inquiryService.update(inquiry.inquiry_anscontent, parseInt(inquiry.inquiry_id));
+        // 데이터를 응답으로 보냄
+        res.json({inquiry_id : inquiry.inquiry_id});
+    }catch(error){
+        next(error);
+    }
+});
+
 module.exports = router;

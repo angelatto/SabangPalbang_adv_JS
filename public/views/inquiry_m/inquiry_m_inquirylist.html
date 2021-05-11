@@ -85,7 +85,7 @@
                                 ng-click="checkDelete(inquiry.inquiry_id, inquiry.inquiry_sabangid)">삭제</button>
                         </td>
                     </tr>
-                    <tr>
+                    <tr ng-show="pager.totalGroupNo > 1">
                         <td colspan="7" style="text-align: center;">
                             <button class="btn btn-outline-primary btn-sm" ng-click="getInquiryList(1, sid)">처음</button>
                             <button class="btn btn-sm" ng-show="pager.groupNo>1"

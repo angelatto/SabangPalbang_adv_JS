@@ -12,10 +12,11 @@ angular.module("app")
             }
         };
 
+        // default - 전체 회원 
         $scope.getList = (pageNo) => {
             memberService.listMember(pageNo)
                 .then((response) => {
-                    $scope.pager = response.data.pager;
+                    $scope.pager_all = response.data.pager_all;
                     $scope.members = response.data.members;
                     $scope.search = "all";
                     $scope.pageRange = [];
@@ -26,12 +27,12 @@ angular.module("app")
                 });
         };
 
-        // 회원 조회 
+        // 회원 조회 리스트 
         $scope.searchMember = (pageNo, target) => {
             if(isNaN(target)){ // 이름 검색 
                 memberService.searchMemberByName(pageNo, target)
                 .then((response) => {
-                    $scope.pager = response.data.pager;
+                    $scope.pager_name = response.data.pager_name;
                     $scope.members = response.data.members;
                     $scope.search = "name";
                     $scope.pageRange = [];
@@ -42,7 +43,7 @@ angular.module("app")
             }else{ // 아이디 검색 
                 memberService.searchMemberById(pageNo, target)
                 .then((response) => {
-                    $scope.pager = response.data.pager;
+                    $scope.pager_id = response.data.pager_id;
                     $scope.members = response.data.members;
                     $scope.search = "id";
                     $scope.pageRange = [];
