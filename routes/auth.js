@@ -1,14 +1,14 @@
 const express = require("express");
-const memberService = require("../services/member-service");
+const authService = require("../services/auth-service");
 const jwtAuth = require("../security/jwtAuth");
 
 const router = express.Router();
 
-router.post("", async (req, res, next) => {
+router.post("/login", async (req, res, next) => {
    console.log("auth.js로 넘어옴");
    try{
       const user = req.body;
-      const result = await memberService.login(user);
+      const result = await authService.login(user);
       console.log("db 작업 완료: ", result);
 
       if(result.id !== "success"){ 
@@ -24,8 +24,8 @@ router.post("", async (req, res, next) => {
          res.status(200); // 인증 성공 
          res.json({uid,authToken});
       }
-  }catch(err){
-      next(err);
+  }catch(error){
+      next(error);
   }
 });
 

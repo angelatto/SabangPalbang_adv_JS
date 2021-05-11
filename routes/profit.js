@@ -8,11 +8,11 @@ const router = express.Router();
 router.get("", async (req, res)=> {
     try{
 
+        // 응답 JSON 
+        res.json({});
     }catch(error){
-        next(err);
+        next(error);
     }
-    // 응답 JSON 
-    res.json({});
 });
 
 module.exports = router;
