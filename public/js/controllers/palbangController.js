@@ -28,7 +28,6 @@ angular.module("app")
         };
 
         //팔방 정렬
-
         $scope.palbang_sort = "좋아요 수";
         $scope.palbang_sorts = ["좋아요 수", "조회수", "최신 순", "오래된 순"];
 

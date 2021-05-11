@@ -11,7 +11,6 @@ const router = express.Router();
 // 요청 매핑하기 
 // 사방 목록 보여주기 
 router.get("", async (req, res, next)=> {
-    console.log("사방 목록 보여주는 라우터 진입");
     try{
         const pageNo = req.query.pageNo? parseInt(req.query.pageNo) : 1;
         const totalRows = await sabangService.totalRows();
@@ -27,7 +26,6 @@ router.get("", async (req, res, next)=> {
 
 // 목록에서 클릭 시 -> 사방 패키지 보여줌 
 router.get("/:sabang_id", async (req, res, next)=> {
-    console.log("read API 서버 들어롬 ");
     try{
         const sabang_id = parseInt(req.params.sabang_id);
         const sabang = await sabangService.getSabang(sabang_id);
