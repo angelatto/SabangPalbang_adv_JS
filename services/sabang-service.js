@@ -56,6 +56,16 @@ module.exports = {
         }catch(error){
             throw error;
         }
+    },
+
+    create: async function(sabang){
+        try{
+            const dbBoard = await db.Sabang.create(sabang);
+            return dbBoard;
+        }catch(error){
+            throw error;
+        }
     }
+
 
 };

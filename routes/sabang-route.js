@@ -3,6 +3,7 @@ const express = require("express");
 const sabangService = require("../services/sabang-service");
 const paging = require("../utils/paging");
 const fs = require("fs");
+const multipartFormData = require("../utils/multipart-form-data");
 
 // Router 객체 생성 - 스프링에서 컨트롤러 객체와 비슷한 의미 
 const router = express.Router();
@@ -44,49 +45,17 @@ router.get("/:sabang_id", async (req, res, next)=> {
     }
 });
 
-// 사방 등록 
-router.post("", async (req, res, next)=> {
-    try{
-        const sabang = req.body();
-        console.log("sabang: ", sabang);
-
-        // 응답 JSON 
-        res.json({});
-    }catch(error){
-        next(error);
-    }
-});
-
-// 사방 수정 
-router.put("", async (req, res, next)=> {
-    try{
-        const sabang = req.body();
-        console.log("sabang: ", sabang);
-
-        // 응답 JSON 
-        res.json({});
-    }catch(error){
-        next(error);
-    }
-});
-
 // 사방 패키지 이미지 출력 
 router.get("/sattach/:sabang_id", async (req, res, next)=> {
     try{
         console.log("sabang router 이미지 출력 진입 ");
-
         const sabang_id = parseInt(req.params.sabang_id);
         const sabang = await sabangService.getSabang(sabang_id);
         const sattachoname = sabang.dataValues.sabang_imgoname;
-        console.log("sattachoname: ", sattachoname);
-
         if(sattachoname != null){
             const sattachsname = sabang.dataValues.sabang_imgsname;
             const sattachspath = process.env.IMG_URL + "sabang_post/" + sattachsname;
             const sattachtype = sabang.dataValues.sabang_imgtype;
-            console.log("sattachsname: ", sattachsname);
-            console.log("sattachspath: ", sattachspath);
-            console.log("sattachtype: ", sattachtype);
             // 이미지 출력 
             fs.readFile(sattachspath, function(error, data){
                 res.writeHead(200,{'Content': sattachtype});
@@ -103,24 +72,50 @@ router.get("/pattach/:product_id", async (req, res, next)=> {
     try{
         console.log("product router 이미지 출력 진입 ");
         const product_id = parseInt(req.params.product_id);
-        
         const product = await sabangService.getProduct(product_id);
-        console.log("product: ", product);
-
         const pattachoname = product.dataValues.product_imgoname;
-        console.log("pattachoname: ", pattachoname);
-
         if(pattachoname != null){
             const pattachsname = product.dataValues.product_imgsname;
             const pattachspath = process.env.IMG_URL + "sabang_detail/" + pattachsname;
             const pattachtype = product.dataValues.product_imgtype;
-
             // 이미지 출력 
             fs.readFile(pattachspath, function(error, data){
                 res.writeHead(200,{'Content': pattachtype});
                 res.end(data);
             });
         }
+    }catch(error){
+        next(error);
+    }
+});
+
+//-------------------------------------------------------
+// 사방 등록 
+router.post("", multipartFormData.single("sattach"), async (req, res, next)=> {
+    try{
+        console.log("사방 등록 라우터 진입-------------------------");
+        const sabang_body = req.body;
+        sabang_body.sabang_imgoname = req.file.originalname;
+        sabang_body.sabang_imgsname = req.file.filename;
+        sabang_body.sabang_imgtype = req.file.mimetype;
+
+        console.log("file:  ", req.file);
+        const sabang = await sabangService.create(sabang_body);
+        console.log("디비에 삽입 후: ", sabang);
+        res.json({sabang});
+        res.end();
+    }catch(error){
+        next(error);
+    }
+});
+
+// 사방 수정 
+router.put("", async (req, res, next)=> {
+    try{
+     
+
+        // 응답 JSON 
+        res.json({});
     }catch(error){
         next(error);
     }
@@ -140,9 +135,37 @@ router.delete("/:sabang_id", async (req, res, next)=> {
 
 //-------------------------------------------------------
 // 상품 등록 
+router.post("", async (req, res, next)=> {
+    try{
+    
+
+        // 응답 JSON 
+        res.json({});
+    }catch(error){
+        next(error);
+    }
+});
 
 // 상품 수정 
+router.put("", async (req, res, next)=> {
+    try{
+    
+        // 응답 JSON 
+        res.json({});
+    }catch(error){
+        next(error);
+    }
+});
 
 // 상품 삭제 
+router.delete("/:sabang_id", async (req, res, next)=> {
+    try{
+
+        // 응답 JSON 
+        res.json({});
+    }catch(error){
+        next(error);
+    }
+});
 
 module.exports = router;

@@ -22,6 +22,7 @@ angular.module("app")
                 return BASE_URL + "/pattach/" + product_id;
             },
             createSabang: function(formData){
+                console.log("Angular Form Data 요청 보내기 전 ");
                 const promise = $http.post(BASE_URL, formData, {headers:{"Content-Type":undefined}});
                 return promise;
             },
