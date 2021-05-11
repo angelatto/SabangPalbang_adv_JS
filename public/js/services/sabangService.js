@@ -36,6 +36,7 @@ angular.module("app")
             },
             createProduct: function(formData) {
                 const promise = $http.post(BASE_URL + "/detail", formData, {headers:{"Content-Type":undefined}});
+                console.log("Angular Service 응답옴");
                 return promise;                                            
             },
             updateProduct: function(formData) {

@@ -79,6 +79,8 @@ angular.module("app")
 
         //$scope.getList(1);
         $scope.read = (sabang_id) =>{
+            console.log("Angular - read() 진입 --------");
+            console.log("sabang_id: ", sabang_id);
             sabangService.read(sabang_id)
                 .then((response) => {
                     $scope.sabang = response.data.sabang;
@@ -100,7 +102,6 @@ angular.module("app")
                 formData.append("sabang_price", 0);
                 formData.append("sabang_saleprice", 0);
 
-                
                 formData.append("sabang_buycount", 0);
                 formData.append("sabang_viewcount", 0);
                 formData.append("sabang_state", "판매준비중");
@@ -209,6 +210,7 @@ angular.module("app")
                 
                 sabangService.createProduct(formData)
                 .then((response) => {
+                    console.log("Angular - 응답 성공.. --------");
                     $scope.read(response.data.sabang_id);
                 });
             }

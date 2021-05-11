@@ -58,6 +58,7 @@ module.exports = {
         }
     },
 
+    /* 패키지 등록 */
     create: async function(sabang){
         try{
             const dbBoard = await db.Sabang.create(sabang);
@@ -65,7 +66,18 @@ module.exports = {
         }catch(error){
             throw error;
         }
+    },
+
+    /* 상품 등록 */
+    createProduct: async function(product){
+        try{
+            const dbBoard = await db.Product.create(product);
+            return dbBoard;
+        }catch(error){
+            throw error;
+        }
     }
+
 
 
 };

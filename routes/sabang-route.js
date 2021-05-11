@@ -14,11 +14,8 @@ router.get("", async (req, res, next)=> {
     console.log("사방 목록 보여주는 라우터 진입");
     try{
         const pageNo = req.query.pageNo? parseInt(req.query.pageNo) : 1;
-        console.log("사방 pageNo: ", pageNo);
         const totalRows = await sabangService.totalRows();
-        console.log("사방 totalRows: ", totalRows);
-
-        const pager = paging.init(5, 5, pageNo, totalRows);
+        const pager = paging.init(6, 5, pageNo, totalRows);
         const sabangBuyList = await sabangService.list(pager);
 
         // 응답 JSON 
@@ -30,13 +27,13 @@ router.get("", async (req, res, next)=> {
 
 // 목록에서 클릭 시 -> 사방 패키지 보여줌 
 router.get("/:sabang_id", async (req, res, next)=> {
+    console.log("read API 서버 들어롬 ");
     try{
         const sabang_id = parseInt(req.params.sabang_id);
         const sabang = await sabangService.getSabang(sabang_id);
 
         // 관계 설정 필요한 부분 ??? 
         const productlist = await sabangService.getProducts(sabang_id);
-        console.log("productlist", productlist);
 
         // 응답 JSON 
         res.json({sabang, productlist});
@@ -93,17 +90,13 @@ router.get("/pattach/:product_id", async (req, res, next)=> {
 // 사방 등록 
 router.post("", multipartFormData.single("sattach"), async (req, res, next)=> {
     try{
-        console.log("사방 등록 라우터 진입-------------------------");
         const sabang_body = req.body;
         sabang_body.sabang_imgoname = req.file.originalname;
         sabang_body.sabang_imgsname = req.file.filename;
         sabang_body.sabang_imgtype = req.file.mimetype;
-
-        console.log("file:  ", req.file);
+        // console.log("file:  ", req.file);
         const sabang = await sabangService.create(sabang_body);
-        console.log("디비에 삽입 후: ", sabang);
         res.json({sabang});
-        res.end();
     }catch(error){
         next(error);
     }
@@ -135,19 +128,28 @@ router.delete("/:sabang_id", async (req, res, next)=> {
 
 //-------------------------------------------------------
 // 상품 등록 
-router.post("", async (req, res, next)=> {
+router.post("/detail", multipartFormData.single("pattach"), async (req, res, next)=> {
     try{
-    
+        console.log("상품 등록 라우터 진입-------------------------");
+        const product_body = req.body;
+        product_body.product_imgoname = req.file.originalname;
+        product_body.product_imgsname = req.file.filename;
+        product_body.product_imgtype = req.file.mimetype;
 
-        // 응답 JSON 
-        res.json({});
+        console.log("file:  ", req.file);
+        const product = await sabangService.createProduct(product_body);
+        console.log("디비에 삽입 후: ", product);
+
+        // 추가사항: 사방 가격 갱신 API 호출해야함 
+
+        res.json({product});
     }catch(error){
         next(error);
     }
 });
 
 // 상품 수정 
-router.put("", async (req, res, next)=> {
+router.put("/detail", async (req, res, next)=> {
     try{
     
         // 응답 JSON 
@@ -158,7 +160,7 @@ router.put("", async (req, res, next)=> {
 });
 
 // 상품 삭제 
-router.delete("/:sabang_id", async (req, res, next)=> {
+router.delete("/detail/:product_id", async (req, res, next)=> {
     try{
 
         // 응답 JSON 

@@ -14,7 +14,7 @@ router.get("", async (req, res, next)=> {
         const totalRows = await memberService.totalRows();
         console.log("totalRows: ", totalRows);
 
-        const pager = paging.init(5, 5, pageNo, totalRows);
+        const pager = paging.init(10, 5, pageNo, totalRows);
         const members = await memberService.list(pager);
         
         // 응답 JSON 

@@ -3,7 +3,13 @@ const multer = require("multer");
 const multipartFormData = multer({
     storage: multer.diskStorage({
         destination: function(req, file, done){
-            done(null, process.env.UPLOAD_PATH_SABANG);  // 사방 패키지 파일 저장되는 위치 
+            if(req.body.sabang_name){
+                console.log("multer1:", req.body);
+                done(null, process.env.UPLOAD_PATH_SABANG);  // 패키지 이미지 파일 저장되는 위치 
+            }else{
+                console.log("multer2:", req.body);
+                done(null, process.env.UPLOAD_PATH_PRODUCT);  // 상품 이미지 파일 저장되는 위치 
+            }
         },
         filename: function(req, file, done){
             // 여기서 저장된 이 파일 이름을 라우터에 전달해서 디비에 저장되게 해야함 
