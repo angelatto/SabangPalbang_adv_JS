@@ -7,12 +7,12 @@ module.exports = {
             if(searchMethod){
                 if(searchMethod.column === "id"){ 
                   where = {
-                    member_authority: "ROLE_USER", 
+                    member_authority: "ROLE_MEMBER", 
                     member_id: searchMethod.target                            
                   }
                 } else{  
                     where = {
-                        member_authority: "ROLE_USER", 
+                        member_authority: "ROLE_MEMBER", 
                         member_name: searchMethod.target                            
                     }
                 }
@@ -28,7 +28,7 @@ module.exports = {
     list: async function(pager){
         try{
             const result = await db.Member.findAll({
-                where:{ member_authority: "ROLE_USER"},
+                where:{ member_authority: "ROLE_MEMBER"},
                 order: [["member_name", "ASC"]],
                 limit: pager.rowsPerPage,
                 offset: pager.startRowIndex
@@ -42,7 +42,7 @@ module.exports = {
     listById: async function(pager, target){
         try{
             const result = await db.Member.findAll({
-                where:{ member_authority: "ROLE_USER",
+                where:{ member_authority: "ROLE_MEMBER",
                         member_id: target},
                 order: [["member_name", "ASC"]],
                 limit: pager.rowsPerPage,
@@ -57,7 +57,7 @@ module.exports = {
     listByName: async function(pager, target){
         try{
             const result = await db.Member.findAll({
-                where:{ member_authority: "ROLE_USER",
+                where:{ member_authority: "ROLE_MEMBER",
                         member_name: target},
                 order: [["member_name", "ASC"]],
                 limit: pager.rowsPerPage,

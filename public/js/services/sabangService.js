@@ -13,6 +13,9 @@ angular.module("app")
                 return promise;
             },
             sattachUrl: function(sabang_id) {
+               // 여기는 왜 프로미스가 아닌가요? 물어보기 
+               // 여기서 리턴하는건 그냥 요청 "주소" 
+               // ex) http://localhost:8089/sabang_m/sattach/3
                 return BASE_URL + "/sattach/" + sabang_id;
             },
             pattachUrl: function(product_id) {

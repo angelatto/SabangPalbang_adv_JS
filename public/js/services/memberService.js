@@ -8,20 +8,12 @@ angular.module("app")
                 const promise = $http.get(BASE_URL, {params:{pageNo:pageNo}});
                 return promise;
             },
-            readMember: function(member_email) {
-                const promise = $http.get(BASE_URL + "/" + member_email);
-                return promise;
-            },
             searchMemberById: function(pageNo=1, target) {
                 const promise = $http.get(BASE_URL + "/id/" + target, {params:{pageNo:pageNo}});
                 return promise;
             },
             searchMemberByName: function(pageNo=1, target) {
                 const promise = $http.get(BASE_URL + "/name/" + target, {params:{pageNo:pageNo}});
-                return promise;
-            },
-            updateMember: function(formData){
-                const promise = $http.put(BASE_URL, formData, {headers:{"Content-Type":undefined}});
                 return promise;
             },
             deleteMember: function(member_email) {

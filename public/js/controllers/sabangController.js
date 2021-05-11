@@ -148,6 +148,8 @@ angular.module("app")
             }
         };
         $scope.sattachUrl = (sabang_id) => {
+            console.log("컨트롤러, 서버로 부터 응답온 것은? : ", sabangService.sattachUrl(sabang_id));
+
             return sabangService.sattachUrl(sabang_id);
         };
 

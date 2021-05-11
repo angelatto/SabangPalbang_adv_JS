@@ -46,7 +46,7 @@ app.use(morgan("dev"));
 
 /* 8. 브라우저 캐싱 금지 미들웨어 적용 - 필터 마냥 순서 중요 */
 app.use((req, res, next) => {
-    console.log("브라우저 캐싱 금지 미들웨어 실행")
+    //console.log("브라우저 캐싱 금지 미들웨어 실행")
     res.set("Cache-Control", 'no-store');
     next();  
 });
