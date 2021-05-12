@@ -210,7 +210,6 @@ angular.module("app")
                 
                 sabangService.createProduct(formData)
                 .then((response) => {
-                    console.log("Angular - 응답 성공.. --------");
                     $scope.read(response.data.sabang_id);
                 });
             }

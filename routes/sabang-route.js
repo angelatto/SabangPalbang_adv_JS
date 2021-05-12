@@ -101,12 +101,22 @@ router.post("", multipartFormData.single("sattach"), async (req, res, next)=> {
 });
 
 // 사방 수정 
-router.put("", async (req, res, next)=> {
+router.put("", multipartFormData.single("sattach"), async (req, res, next)=> {
+    console.log("------------- 수정----------------------: ");
+    /*
+    왜 처음 수정 시에 가격을 수정해야만 폼이 넘어가지?? 고쳐야 할 점 !!
+    그런데 수정 후에는 또 수정안해도 됨 
+     */
     try{
-     
-
-        // 응답 JSON 
-        res.json({});
+        const sabang = req.body;
+        if(sabang.sabang_imgoname != null){
+            sabang.sabang_imgoname = req.file.originalname;
+            sabang.sabang_imgsname = req.file.filename;
+            sabang.sabang_imgtype = req.file.mimetype;
+        }
+        await sabangService.update(sabang);
+        // 정상 응답
+        res.end();
     }catch(error){
         next(error);
     }
@@ -140,7 +150,7 @@ router.post("/detail", multipartFormData.single("pattach"), async (req, res, nex
 
         // 추가사항: 사방 가격 갱신 API 호출해야함 
 
-        res.json({product});
+        res.json(product);
     }catch(error){
         next(error);
     }

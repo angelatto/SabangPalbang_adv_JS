@@ -29,7 +29,7 @@
                 <label>대표사진 첨부:</label>
                 <br/>
                 <img src="{{sattachUrl(sabang.sabang_id)}}" width="200" height="200" class="mb-2"/>
-                <input id="sattach" type="file" class="form-control-file" />
+                <input id="sattach" name="sattach" type="file" class="form-control-file" />
             </div>
             <button class="btn btn-sm" style="background-color: #0BE324; color: white;" ng-click="updateSabang(sabang)">수정</button>
             <button class="btn btn-sm" style="background-color: #FB140D; color:  white;" ng-click="cancelUpdate(sabang.sabang_id)">취소</button>        

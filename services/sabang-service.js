@@ -68,6 +68,29 @@ module.exports = {
         }
     },
 
+    /* 패키지 수정 */
+    update: async function(sabang){
+        try{
+            const target = {};
+            target.sabang_name = sabang.sabang_name;
+            target.sabang_price = sabang.sabang_price;
+            target.sabang_saleprice = sabang.sabang_saleprice;
+            target.sabang_buycount = sabang.sabang_buycount;
+            target.sabang_viewcount = sabang.sabang_viewcount;
+            target.sabang_state = sabang.sabang_state;
+            if(sabang.sabang_imgoname != null){
+                target.sabang_imgoname = sabang.sabang_imgoname;
+                target.sabang_imgsname = sabang.sabang_imgsname;
+                target.sabang_imgtype = sabang.sabang_imgtype;
+            }
+            await db.Sabang.update(target, {
+                where: {sabang_id: sabang.sabang_id}
+            });
+        }catch(error){
+            throw error;
+        }
+    },
+
     /* 상품 등록 */
     createProduct: async function(product){
         try{
