@@ -29,9 +29,7 @@ angular.module("app")
                 return promise;
             },
             deleteSabang: function(sabang_id) {
-                console.log("---------서버로 요청 보내기 전 ");
                 const promise = $http.delete(BASE_URL + "/" + sabang_id);
-                console.log("-----------delete promise: ", promise);
                 return promise;
             },
             createProduct: function(formData) {

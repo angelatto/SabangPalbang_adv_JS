@@ -151,7 +151,7 @@ router.post("/detail", multipartFormData.single("pattach"), async (req, res, nex
     }
 });
 
-// 상품 수정 -----지금 구현중 !!
+// 상품 수정
 router.put("/detail", multipartFormData.single("pattach"), async (req, res, next)=> {
     try{
         const product = req.body;
@@ -161,12 +161,17 @@ router.put("/detail", multipartFormData.single("pattach"), async (req, res, next
             product.product_imgtype = req.file.mimetype;
         }
 
-        // 상품 테이블 갱신 및 사방 테이블 가격 갱신 
-        await sabangService.updateProduct(product);
+        // 수정 전 디비 오리지날 데이터 가져오기 - 차액을 구하기 위함 
+        const origin_product = await sabangService.getProduct(parseInt(product.product_id));
+        const updatePrice = parseInt(product.product_price) - origin_product.dataValues.product_price;
+        console.log("차액만큼 사방에 넣어줘야 함 : ", updatePrice);
 
-        // 궁금: 아니 왜 굳이 업데이트 전 프로덕트를 왜 리턴? 굳이? 받아온걸 그대로 리턴하는ㄴ이유가 뭐야 ..  
-       // res.json(product);
-        res.end(); 
+        // 상품 테이블 갱신 및 사방 테이블 가격 갱신 
+        await sabangService.updateProduct(product, updatePrice);
+
+        // 응답 - 프론트에서 응답으로 객체를 요구하니까 주는것이고, 사실은 줄 필요 없어 보임
+        // 왜냐하면 파라미터로 넘겨받은 객체와 같기 때문이다. 
+        res.json(product);
     }catch(error){
         next(error);
     }

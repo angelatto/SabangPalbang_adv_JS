@@ -122,7 +122,7 @@ module.exports = {
     },
     
     /* 상품 수정 */
-    updateProduct: async function(product){
+    updateProduct: async function(product, updatePrice){
         try{
             const target = {};
             target.product_name = product.product_name;
@@ -134,20 +134,20 @@ module.exports = {
                 target.product_imgsname = product.product_imgsname;
                 target.product_imgtype = product.product_imgtype;
             }
+            
+            console.log("target: ", target);
+
             // 1. 상품 테이블 수정 
             await db.Product.update(target, {
                 where: {product_id: product.product_id}
             });
 
-            // 2. 사방 테이블 가격 갱신 , 여기를 다시 해야함 !!! 
-            /*
-                상품 등록시에는 플러스, 
-                상품 삭제시에는 마이너스, 
-                상품 수정시에는 차액만큼 변경 계산해줘야함. 
-            */
-            await db.Sabang.decrement({
-                sabang_price: parseInt(product.product_price),
-                sabang_saleprice: parseInt(product.product_price)
+            // 2. 사방 테이블 가격 갱신
+            console.log("111111112: ", updatePrice);
+
+            await db.Sabang.increment({
+                sabang_price: updatePrice,
+                sabang_saleprice: updatePrice
             }, {where:{sabang_id: product.sabang_id}});
 
         }catch(error){

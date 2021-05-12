@@ -127,12 +127,17 @@ angular.module("app")
                 var formData = new FormData();
                 formData.append("sabang_id", sabang.sabang_id);
                 formData.append("sabang_name", sabang.sabang_name);
-                formData.append("sabang_price", sabang.sabang_price);
+                if(sabang.sabang_price){
+                    formData.append("sabang_price", sabang.sabang_price);
+
+                } else {
+                    formData.append("sabang_price", 0);
+                }
                 if(sabang.sabang_saleprice){
                     formData.append("sabang_saleprice", sabang.sabang_saleprice);
 
                 } else {
-                    formData.append("sabang_saleprice", null);
+                    formData.append("sabang_saleprice", 0);
                 }
                 formData.append("sabang_buycount", sabang.sabang_buycount);
                 formData.append("sabang_viewcount", sabang.sabang_viewcount);
