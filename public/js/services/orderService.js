@@ -12,8 +12,9 @@ angular.module("app")
                 const promise = $http.get(BASE_URL + "/" + order_id);
                 return promise;
             },
-            update: function(formData) {
-                const promise = $http.put(BASE_URL, formData, {headers:{"Content-Type":undefined}});
+            update: function(jsonData) {
+                // const promise = $http.put(BASE_URL, formData, {headers:{"Content-Type":undefined}});
+                const promise = $http.put(BASE_URL, jsonData);
                 return promise;
             },
             delete: function(order_id) {

@@ -58,7 +58,7 @@
         </div>
             <div class="order_detail_header_content m-3">
                     <div class="order_detail_content_sabangImg mt-5">
-                        <img style="width: 400px; height:400px;" src="{{sattachUrl(sabang.sabang_id)}}">
+                        <img style="width: 400px; height:400px;" src="{{sattachUrl(order.order_sabangid)}}">
                     </div>
                     <div class="order_detail_content_mainContent mt-5">
                        
@@ -85,8 +85,6 @@
                                 <br/>
                             </div>
                             
-
-                      
                             <div class="order_detail_header_detail">
                                 <h6>결제금액: {{order.order_price | number:0}}원</h6>
                                 <br/>

@@ -66,11 +66,8 @@ angular.module("app")
         $scope.read = (order_id) =>{
             orderService.read(order_id)
                 .then((response) => {
-                    $scope.order = response.data.order;
-                    $scope.orderlist = response.data.orderlist;
-                    $scope.product = response.data.product;
-                    $scope.sabang = response.data.sabang;
-                    $scope.Memail = response.data.Memail;
+                    $scope.order = response.data;
+                    $scope.Memail = response.data.Member;
                     $scope.view = "read";
                 });
         };
@@ -80,15 +77,15 @@ angular.module("app")
         };
 
         $scope.updateOrder = (order) => {
-                var formData = new FormData();
-                formData.append("order_id", order.order_id);
-                formData.append("order_zipcode", $("#zipcode").val());
-                formData.append("order_roadaddress", $("#roadaddress").val());
-                formData.append("order_detailaddress", $("#detailaddress").val());
-                formData.append("order_state", order.order_state);
-                formData.append("order_phone", order.order_phone);
-                orderService.update(formData)
-                .then((response) => {
+                let jsonData = {};
+                jsonData.order_id = order.order_id;
+                jsonData.order_zipcode = $("#zipcode").val();
+                jsonData.order_roadaddress = $("#roadaddress").val();
+                jsonData.order_detailaddress = $("#detailaddress").val();
+                jsonData.order_state = order.order_state;
+                jsonData.order_phone = order.order_phone;
+                orderService.update(jsonData)
+                .then(() => {
                     $scope.read(order.order_id);
                     $scope.view = "read";
                 })
