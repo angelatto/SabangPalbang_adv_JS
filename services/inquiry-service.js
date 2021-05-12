@@ -56,11 +56,7 @@ module.exports = {
     /* 문의 삭제 */
     delete: async function(inquiry_id){
         try{
-            const result = await db.Inquiry.destroy({
-                where: {inquiry_id}
-            })
-           // console.log("삭제 후 결과는 영향 받은 행 수 : ", result);
-            return result;
+            await db.Inquiry.destroy({where: {inquiry_id}})
         }catch(error){
             throw error;
         }
@@ -69,14 +65,12 @@ module.exports = {
     /* 문의 답변 남기기 */
     update: async function(anscontent, inquiry_id){
         try{
-            const result = await db.Inquiry.update({
+            await db.Inquiry.update({
                 inquiry_ansstate: '답변완료',
                 inquiry_anscontent: anscontent
             },{
                 where: {inquiry_id}
             })
-            console.log("수정 후 결과는 영향 받은 행 수 : ", result);
-            return result;
         }catch(error){
             throw error;
         }

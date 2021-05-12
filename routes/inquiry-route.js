@@ -17,7 +17,6 @@ router.get("", async (req, res, next)=> {
         const totalRows = await sabangService.totalRows();
         const pager = paging.init(6, 5, pageNo, totalRows);
         const sabangBuyList = await sabangService.list(pager);
-
         for(let i in sabangBuyList){
             const sid = sabangBuyList[i].dataValues.sabang_id;
             const totalInquiryNum = await inquiryService.totalRows(sid);
@@ -74,7 +73,6 @@ router.get("/:sid", async (req, res, next)=> {
 // 하나의 문의 내용 읽기 
 router.get("/inquiry/:inquiry_id", async (req, res, next) => {
     try{
-        console.log("여기로 들어오긴함 근데 아이디? ", req.params.inquiry_id);
         const inquiry_id = parseInt(req.params.inquiry_id);
         const inquiry = await inquiryService.getInquiry(inquiry_id);
         // 응답 JSON 
