@@ -10,13 +10,18 @@ module.exports = (sequelize, DataTypes) => {
                 매개변수로 models 받는 이유는 db를 넘겨주니까. 
             */
            // 일 대 다 
-        //    models.User.hasMany(models.Board, {foreignKey:"bwriter", sourceKey:"userid"});
-        //    models.User.hasMany(models.Order, {foreignKey:"userid", sourceKey:"userid"});
+           models.Member.hasMany(models.OrderMain, {foreignKey:"order_memberid", sourceKey:"member_id"});
+           models.Member.hasMany(models.Palbang, {foreignKey:"palbang_nickname", sourceKey:"member_nickname"});
+
         }
     }
 
     //  DB 컬럼 데이터 타입에 맞게 모델의 속성을 정의 
     Member.init({  // init(): Model이 가진 정적 메소드 
+        // cnt: {
+        //     type: DataTypes.INTEGER,
+        //     allowNull: true
+        // },
         member_id: {
             type: DataTypes.INTEGER,
             primaryKey: true

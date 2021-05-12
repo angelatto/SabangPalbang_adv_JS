@@ -5,7 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     // 모델 클래스 선언 - ES6 
     class OrderMain extends Model {
         static associate(models) { 
-        
+            // 다 대 일(Member)
+            models.OrderMain.belongsTo(models.Member, {foreignKey:"order_memberid", targetKey:"member_id"});
         }
     }
 

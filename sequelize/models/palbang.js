@@ -5,6 +5,8 @@ module.exports = (sequelize, DataTypes) => {
     // 모델 클래스 선언 - ES6 
     class Palbang extends Model {
         static associate(models) { 
+            // 다 대 일 
+            models.Palbang.belongsTo(models.Member, {foreignKey:"palbang_nickname", targetKey:"member_nickname"});
         
         }
     }
