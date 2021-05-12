@@ -141,7 +141,7 @@ angular.module("app")
                 }
                 formData.append("sabang_buycount", sabang.sabang_buycount);
                 formData.append("sabang_viewcount", sabang.sabang_viewcount);
-                formData.append("sabang_state", $scope.sabang_state);
+                formData.append("sabang_state", $("#sabang_state option:selected").val().substr(7));
 
                 // 파일 첨부 
                 var sattach = $("#sattach")[0].files[0];
