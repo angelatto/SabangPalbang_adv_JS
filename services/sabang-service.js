@@ -91,6 +91,18 @@ module.exports = {
         }
     },
 
+    /* 패키지 삭제 */
+    delete: async function(sabang_id){
+
+        try{
+            await db.Sabang.destroy({
+                where: {sabang_id}
+            })
+        }catch(error){
+            throw error;
+        }
+    },
+
     /* 상품 등록 */
     createProduct: async function(product){
         try{

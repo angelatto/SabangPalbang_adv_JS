@@ -13,7 +13,6 @@ angular.module("app")
                 return promise;
             },
             sattachUrl: function(sabang_id) {
-               // 여기는 왜 프로미스가 아닌가요? 물어보기 
                // 여기서 리턴하는건 그냥 요청 "주소" 
                // ex) http://localhost:8089/sabang_m/sattach/3
                 return BASE_URL + "/sattach/" + sabang_id;
@@ -22,7 +21,6 @@ angular.module("app")
                 return BASE_URL + "/pattach/" + product_id;
             },
             createSabang: function(formData){
-                console.log("Angular Form Data 요청 보내기 전 ");
                 const promise = $http.post(BASE_URL, formData, {headers:{"Content-Type":undefined}});
                 return promise;
             },
@@ -31,12 +29,13 @@ angular.module("app")
                 return promise;
             },
             deleteSabang: function(sabang_id) {
+                console.log("---------서버로 요청 보내기 전 ");
                 const promise = $http.delete(BASE_URL + "/" + sabang_id);
+                console.log("-----------delete promise: ", promise);
                 return promise;
             },
             createProduct: function(formData) {
                 const promise = $http.post(BASE_URL + "/detail", formData, {headers:{"Content-Type":undefined}});
-                console.log("Angular Service 응답옴");
                 return promise;                                            
             },
             updateProduct: function(formData) {

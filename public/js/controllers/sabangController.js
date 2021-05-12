@@ -33,38 +33,40 @@ angular.module("app")
             sabangService.list(pageNo)
                 .then((response) => {
                     $scope.pager = response.data.pager;
-                    $scope.sabangSaleingPager = response.data.sabangSaleingPager;
-                    $scope.sabangSaleReadyPager = response.data.sabangSaleReadyPager;
-                    $scope.sabangSaleStopPager = response.data.sabangSaleStopPager;
                     $scope.sabangBuyList = response.data.sabangBuyList;
-                    $scope.sabangViewList = response.data.sabangViewList;
-                    $scope.sabangHighList = response.data.sabangHighList;
-                    $scope.sabangLowList = response.data.sabangLowList;
-                    $scope.sabangSaleingList = response.data.sabangSaleingList;
-                    $scope.sabangSaleReadyList = response.data.sabangSaleReadyList;
-                    $scope.sabangSaleStopList = response.data.sabangSaleStopList;
-                    
 
                     $scope.pageRange = [];
                     for(var i=$scope.pager.startPageNo; i<=$scope.pager.endPageNo; i++){
                         $scope.pageRange.push(i)
                     }
 
-                    $scope.sabangSaleingpageRange = [];
-                    for(var i=$scope.sabangSaleingPager.startPageNo; i<=$scope.sabangSaleingPager.endPageNo; i++){
-                        $scope.sabangSaleingpageRange.push(i)
-                    }
+                    if(response.data.sabangSaleingPager){
+                        $scope.sabangSaleingPager = response.data.sabangSaleingPager;
+                        $scope.sabangSaleReadyPager = response.data.sabangSaleReadyPager;
+                        $scope.sabangSaleStopPager = response.data.sabangSaleStopPager;
+      
+                        $scope.sabangViewList = response.data.sabangViewList;
+                        $scope.sabangHighList = response.data.sabangHighList;
+                        $scope.sabangLowList = response.data.sabangLowList;
+                        $scope.sabangSaleingList = response.data.sabangSaleingList;
+                        $scope.sabangSaleReadyList = response.data.sabangSaleReadyList;
+                        $scope.sabangSaleStopList = response.data.sabangSaleStopList;
 
-                    $scope.sabangSalereadypageRange = [];
-                    for(var i=$scope.sabangSaleReadyPager.startPageNo; i<=$scope.sabangSaleReadyPager.endPageNo; i++){
-                        $scope.sabangSalereadypageRange.push(i)
+                        $scope.sabangSaleingpageRange = [];
+                        for(var i=$scope.sabangSaleingPager.startPageNo; i<=$scope.sabangSaleingPager.endPageNo; i++){
+                            $scope.sabangSaleingpageRange.push(i)
+                        }
+    
+                        $scope.sabangSalereadypageRange = [];
+                        for(var i=$scope.sabangSaleReadyPager.startPageNo; i<=$scope.sabangSaleReadyPager.endPageNo; i++){
+                            $scope.sabangSalereadypageRange.push(i)
+                        }
+    
+                        $scope.sabangSalestoppageRange = [];
+                        for(var i=$scope.sabangSaleStopPager.startPageNo; i<=$scope.sabangSaleStopPager.endPageNo; i++){
+                            $scope.sabangSalestoppageRange.push(i)
+                        }
                     }
-
-                    $scope.sabangSalestoppageRange = [];
-                    for(var i=$scope.sabangSaleStopPager.startPageNo; i<=$scope.sabangSaleStopPager.endPageNo; i++){
-                        $scope.sabangSalestoppageRange.push(i)
-                    }
-
 
                     $scope.view = "list";
                 });
@@ -183,6 +185,7 @@ angular.module("app")
         $scope.deleteSabang = (sabang_id,pageNo) => {
             sabangService.deleteSabang(sabang_id)
                 .then(() => {
+                    console.log("----sabangController------");
                     $scope.getList(pageNo);
                 });
         };

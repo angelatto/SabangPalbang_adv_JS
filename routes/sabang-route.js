@@ -126,9 +126,9 @@ router.put("", multipartFormData.single("sattach"), async (req, res, next)=> {
 router.delete("/:sabang_id", async (req, res, next)=> {
     try{
         const sabang_id = parseInt(req.params.sabang_id);
-
-        // 응답 JSON 
-        res.json({});
+        await sabangService.delete(sabang_id);
+        // 정상 응답 
+        res.end();
     }catch(error){
         next(error);
     }
