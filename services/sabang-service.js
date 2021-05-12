@@ -106,20 +106,67 @@ module.exports = {
     /* 상품 등록 */
     createProduct: async function(product){
         try{
+            // 1. 상품 테이블 등록 
             const dbBoard = await db.Product.create(product);
+           
+            // 2. 사방 테이블 가격 갱신 
+            await db.Sabang.increment({
+                sabang_price: parseInt(product.product_price),
+                sabang_saleprice: parseInt(product.product_price)
+            }, {where:{sabang_id: product.sabang_id}});
+
             return dbBoard;
         }catch(error){
             throw error;
         }
     },
     
-    /* 상품 등록 시 패키지 가격 갱신 */
-    updatePrice: async function(product){
+    /* 상품 수정 */
+    updateProduct: async function(product){
         try{
-            await db.Sabang.increment({
+            const target = {};
+            target.product_name = product.product_name;
+            target.product_price = product.product_price;
+            target.product_explain1 = product.product_explain1;
+            target.product_explain2 = product.product_explain2;
+            if(product.product_imgoname != null){
+                target.product_imgoname = product.product_imgoname;
+                target.product_imgsname = product.product_imgsname;
+                target.product_imgtype = product.product_imgtype;
+            }
+            // 1. 상품 테이블 수정 
+            await db.Product.update(target, {
+                where: {product_id: product.product_id}
+            });
+
+            // 2. 사방 테이블 가격 갱신 , 여기를 다시 해야함 !!! 
+            /*
+                상품 등록시에는 플러스, 
+                상품 삭제시에는 마이너스, 
+                상품 수정시에는 차액만큼 변경 계산해줘야함. 
+            */
+            await db.Sabang.decrement({
                 sabang_price: parseInt(product.product_price),
                 sabang_saleprice: parseInt(product.product_price)
             }, {where:{sabang_id: product.sabang_id}});
+
+        }catch(error){
+            throw error;
+        }
+    },
+
+    /* 상품 삭제 */
+    deleteProduct: async function(product){
+        try{
+            // 1. 상품 테이블 삭제 
+            await db.Product.destroy({where: {product_id: product.product_id}});
+
+            // 2. 사방 테이블 가격 갱신 
+            await db.Sabang.decrement({
+                sabang_price: parseInt(product.product_price),
+                sabang_saleprice: parseInt(product.product_price)
+            }, {where:{sabang_id: product.sabang_id}});
+
         }catch(error){
             throw error;
         }

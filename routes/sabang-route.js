@@ -143,32 +143,46 @@ router.post("/detail", multipartFormData.single("pattach"), async (req, res, nex
         product_body.product_imgsname = req.file.filename;
         product_body.product_imgtype = req.file.mimetype;
 
+        // 상품 테이블 삽입 및 사방 테이블 가격 갱신 
         const product = await sabangService.createProduct(product_body);
-        // 추가사항: 사방 가격 갱신 API 호출해야함 
-        await sabangService.updatePrice(product_body);
         res.json(product);
     }catch(error){
         next(error);
     }
 });
 
-// 상품 수정 
-router.put("/detail", async (req, res, next)=> {
+// 상품 수정 -----지금 구현중 !!
+router.put("/detail", multipartFormData.single("pattach"), async (req, res, next)=> {
     try{
-    
-        // 응답 JSON 
-        res.json({});
+        const product = req.body;
+        if(product.product_imgoname != null){
+            product.product_imgoname = req.file.originalname;
+            product.product_imgsname = req.file.filename;
+            product.product_imgtype = req.file.mimetype;
+        }
+
+        // 상품 테이블 갱신 및 사방 테이블 가격 갱신 
+        await sabangService.updateProduct(product);
+
+        // 궁금: 아니 왜 굳이 업데이트 전 프로덕트를 왜 리턴? 굳이? 받아온걸 그대로 리턴하는ㄴ이유가 뭐야 ..  
+       // res.json(product);
+        res.end(); 
     }catch(error){
         next(error);
     }
 });
 
+
 // 상품 삭제 
 router.delete("/detail/:product_id", async (req, res, next)=> {
     try{
+        const product_id = parseInt(req.params.product_id);
+        const product = await sabangService.getProduct(product_id);
 
-        // 응답 JSON 
-        res.json({});
+        // 상품 테이블 삭제 및 사방 테이블 가격 갱신 
+        await sabangService.deleteProduct(product);
+        // 정상 응답 
+        res.end();
     }catch(error){
         next(error);
     }

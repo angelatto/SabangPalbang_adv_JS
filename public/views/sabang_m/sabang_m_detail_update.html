@@ -29,7 +29,7 @@
                 <label>상품사진 첨부:</label>
                 <br/>
                 <img src="{{pattachUrl(product.product_id)}}" width="200" height="200" class="mb-2"/>
-                <input id="pattach" type="file" class="form-control-file" />
+                <input id="pattach" name="pattach" type="file" class="form-control-file" />
             </div>
             <button class="btn btn-sm" style="background-color: #0BE324; color: white;" ng-click="updateProduct(product)">수정</button>
             <button class="btn btn-sm" style="background-color: #FB140D; color:  white;" ng-click="cancelUpdate(sabang.sabang_id)">취소</button>        
