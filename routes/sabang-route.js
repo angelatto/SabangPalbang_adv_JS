@@ -138,18 +138,14 @@ router.delete("/:sabang_id", async (req, res, next)=> {
 // 상품 등록 
 router.post("/detail", multipartFormData.single("pattach"), async (req, res, next)=> {
     try{
-        console.log("상품 등록 라우터 진입-------------------------");
         const product_body = req.body;
         product_body.product_imgoname = req.file.originalname;
         product_body.product_imgsname = req.file.filename;
         product_body.product_imgtype = req.file.mimetype;
 
-        console.log("file:  ", req.file);
         const product = await sabangService.createProduct(product_body);
-        console.log("디비에 삽입 후: ", product);
-
         // 추가사항: 사방 가격 갱신 API 호출해야함 
-
+        await sabangService.updatePrice(product_body);
         res.json(product);
     }catch(error){
         next(error);

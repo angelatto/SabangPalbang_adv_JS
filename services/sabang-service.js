@@ -99,8 +99,17 @@ module.exports = {
         }catch(error){
             throw error;
         }
+    },
+    
+    /* 상품 등록 시 패키지 가격 갱신 */
+    updatePrice: async function(product){
+        try{
+            await db.Sabang.increment({
+                sabang_price: parseInt(product.product_price),
+                sabang_saleprice: parseInt(product.product_price)
+            }, {where:{sabang_id: product.sabang_id}});
+        }catch(error){
+            throw error;
+        }
     }
-
-
-
 };
