@@ -116,15 +116,38 @@ router.get("/sabang/palattach/:palbang_id", async(req, res, next) => {
     }
 });
 
-/* 주문 실적 - 이거 해야함  */
+/* 주문 실적 */
 router.get("/order", async (req, res, next)=> {
-    console.log("주문 실적 API 진입--------------------");
     try{
+        // 1. 누적 판매량 
+        const totalCount = await profitService.totalCount();
+        const sumtotalprice = await profitService.sumtotalprice();
         
+        // 2. 최근 3달 판매량 - 배열로 한번에 보냄 
+        const currMonth = new Date().getMonth()+1; // 5월 - 현재month
+        const allTotalSales = [];
+        for(let i=0; i<3; i++){
+            const totalSales = await profitService.totalpriceByMonth(currMonth-i);  
+            allTotalSales.push(totalSales);
+        }
 
-        res.end();
+        // 3. 최근 3달 주문 수 - 배열로 한번에 보냄 
+        const allSalesCount = [];
+        for(let i=0; i<3; i++){
+            const salesCount = await profitService.salesCountByMonth(currMonth-i);  
+            allSalesCount.push(salesCount);
+        }
+
+        // 4. 결제방식 
+        const cardpaycount = await profitService.paycount('payByCard');
+        const depositpaycount = await profitService.paycount('payByDeposit');
+        const phonepaycount = await profitService.paycount('payByPhone');
+
+        // 응답 
+        res.json({totalCount, sumtotalprice, 
+                cardpaycount, depositpaycount, phonepaycount,
+                allTotalSales, allSalesCount});
     }catch(error){
-        console.log("err123: ", error.message);
         next(error);
     }
 });
