@@ -59,28 +59,36 @@ angular.module("app")
             console.log("월별판매량들어옴");
             profitService.monthbuy()
             .then((response) => {
-                $scope.month3 = response.data.month3;
-                $scope.month2 = response.data.month2;
-                $scope.month1 = response.data.month1;
+                // 1. 누적 판매량 
                 $scope.sumtotalprice = response.data.sumtotalprice;
-                $scope.totalprice3 = response.data.totalprice3;
-                $scope.totalprice2 = response.data.totalprice2;
-                $scope.totalprice1 = response.data.totalprice1;
                 $scope.totalCount = response.data.totalCount;
-                $scope.threeTotalCount = response.data.threeTotalCount;
+
+                // 2. 최근 3달 단위 판매량 
+                const allTotalSales = response.data.allTotalSales;
+                console.log("allTotalSales: ", allTotalSales);
+                $scope.allTotalSales = allTotalSales;
+
+                let threeTotalCount = 0
+                for(let totalSales of allTotalSales){
+                    threeTotalCount += parseInt(totalSales.sum);
+                }
+                $scope.threeTotalCount = threeTotalCount;
+
+                $scope.totalPriceData = [
+                    [allTotalSales[0].sum, allTotalSales[1].sum, allTotalSales[2].sum, 23000000,25000000]
+                ];
+
+                // 3. 최근 3달 주문수 
+                const allSalesCount = response.data.allSalesCount;
+                console.log("allSalesCount: ", allSalesCount);
+                $scope.totalNumberData = [
+                    [allSalesCount[0].count, allSalesCount[1].count, allSalesCount[2].count,0]
+                ];
+
+                // 4. 결제 방식 
                 $scope.cardpaycount = response.data.cardpaycount;
                 $scope.depositpaycount = response.data.depositpaycount;
                 $scope.phonepaycount = response.data.phonepaycount;
-                $scope.outputThreeMonth = response.data.outputThreeMonth;
-                $scope.outputTwoMonth = response.data.outputTwoMonth;
-                $scope.outputOneMonth = response.data.outputOneMonth;
-
-                $scope.totalPriceData = [
-                    [$scope.totalprice3[0], $scope.totalprice2[0], $scope.totalprice1[0],23000000,25000000]
-                ];
-                $scope.totalNumberData = [
-                    [$scope.month3, $scope.month2, $scope.month1,0]
-                ];
                 $scope.payData = [
                     $scope.cardpaycount,  $scope.depositpaycount, $scope.phonepaycount
                 ];
