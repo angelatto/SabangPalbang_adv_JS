@@ -1,11 +1,13 @@
 const db = require("../sequelize/models");
 
 module.exports = {
-    totalRows: async function(sid){ 
+    totalRows: async function(sid, ansstate){ 
         try{
-            const result = await db.Inquiry.count({
-                where:{inquiry_sabangid: sid}
-            });
+            let where = {inquiry_sabangid: sid};
+            if(ansstate != '전체답변'){
+                where.inquiry_ansstate = ansstate;
+            }
+            const result = await db.Inquiry.count({where});
             return result;
         }catch(error){
             throw error;
@@ -27,10 +29,14 @@ module.exports = {
     },
 
     /* 사방에 대한 문의 목록 */
-    list: async function(pager, sid){
+    list: async function(pager, sid, ansstate){
         try{
+            let where = {inquiry_sabangid: sid};
+            if(ansstate != '전체답변'){
+                where.inquiry_ansstate = ansstate;
+            }
             const result = await db.Inquiry.findAll({
-                where: {inquiry_sabangid: sid},
+                where,
                 order: [["inquiry_id", "DESC"]],
                 limit: pager.rowsPerPage,
                 offset: pager.startRowIndex

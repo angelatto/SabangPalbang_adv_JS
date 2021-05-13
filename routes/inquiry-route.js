@@ -57,11 +57,11 @@ router.get("/sattach/:sabang_id", async (req, res, next)=> {
 router.get("/:sid", async (req, res, next)=> {
     try{
         const sid = parseInt(req.params.sid);
-        const ansstate = req.param.ansstate;
+        const ansstate = req.query.ansstate; // 전체답변, 대기중, 답변완료 
         const pageNo = req.query.pageNo? parseInt(req.query.pageNo) : 1;
-        const totalRows = await inquiryService.totalRows(sid);
+        const totalRows = await inquiryService.totalRows(sid, ansstate);
         const pager = paging.init(10, 5, pageNo, totalRows);
-        const inquirylist = await inquiryService.list(pager, sid);
+        const inquirylist = await inquiryService.list(pager, sid, ansstate);
     
         // 응답 JSON 
         res.json({pager, inquirylist});
