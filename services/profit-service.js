@@ -4,6 +4,8 @@ const Op = db.Sequelize.Op;
 
 
 module.exports = {
+    /* --------------------------------회원 실적 ---------------------------------------- */
+
     // 총 회원수 
     // where: {member_authority: 'ROLE_MEMBER'}
     getMemberCount: async function(){
@@ -65,7 +67,7 @@ module.exports = {
     getVipMembers: async function(){
         try{
             // Member와 OrderMain 조인
-            // 다.findAll
+            // 다(N).findAll
             const result = await db.OrderMain.findAll({
                 attributes: [
                     'Member.member_name', 'order_memberid', 'Member.member_email',
@@ -73,7 +75,6 @@ module.exports = {
                 ],
                 include: [{ 
                     model: db.Member
-                    //attributes: ['member_name', 'member_id', 'member_email']
                  }],
                  group: ['order_memberid'],
                  order: [[db.Sequelize.literal('cnt'), 'DESC']],
@@ -107,7 +108,7 @@ module.exports = {
         }
     },
 
-    /* --------사방 실적 -------- */
+    /* --------------------------------사방 실적 ---------------------------------------- */
     getBestSabang: async function(){
         try{
             const result = await db.Sabang.findOne({
@@ -142,6 +143,75 @@ module.exports = {
         }catch(error){
             throw error;
         }
+    },
+
+    /* --------------------------------주문 실적 ---------------------------------------- */
+    totalCount: async function(){
+        try{
+            const result = await db.OrderMain.count();
+            return result;
+        }catch(error){
+            throw error;
+        }
+    },
+
+    sumtotalprice: async function(){
+        try{
+            const result = await db.OrderMain.sum('order_price');
+            return result;
+        }catch(error){
+            throw error;
+        }
+    },
+
+    paycount: async function(payBy){
+        try{
+            const result = await db.OrderMain.count({
+                where: {order_payment: payBy}
+            });
+            return result;
+        }catch(error){
+            throw error;
+        }
+    },
+
+    totalpriceByMonth: async function(targetMonth){
+        try{
+            const result = await db.OrderMain.findOne({
+                attributes: [
+                    [sequelize.fn('month', sequelize.col("order_date")), 'month'],
+                    [sequelize.fn('sum', sequelize.col("order_price")), 'sum']
+                ],
+                where: {
+                    [Op.and]: [
+                      sequelize.where(sequelize.fn('month', sequelize.col('order_date')), targetMonth)
+                    ]
+                }
+            });
+            return result.dataValues;
+        }catch(error){
+            throw error;
+        }
+    },
+
+    salesCountByMonth: async function(targetMonth){
+        try{
+            const result = await db.OrderMain.findOne({
+                attributes: [
+                    [sequelize.fn('month', sequelize.col("order_date")), 'month'],
+                    [sequelize.fn('count', sequelize.col("order_id")), 'count']
+                ],
+                where: {
+                    [Op.and]: [
+                      sequelize.where(sequelize.fn('month', sequelize.col('order_date')), targetMonth)
+                    ]
+                }
+            });
+            return result.dataValues;
+        }catch(error){
+            throw error;
+        }
     }
+
 
 };
