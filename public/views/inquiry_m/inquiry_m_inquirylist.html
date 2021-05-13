@@ -48,16 +48,13 @@
         <div class="mb-3">
             <button class="btn btn-sm" style="background-color: #00B0F0; color: white;" ng-click="getSabangList()">뒤로가기</button>
         </div>
-        <div ng-if="inquirylist.length == 0">  
-            <div class="noInquiryMsg">문의 사항이 없습니다.</div>
-        </div>
-        <div ng-if="inquirylist.length > 0"> <!-- 총 문의 개수가 0개 이상일 때 -->
+        <div> <!-- 총 문의 개수가 0개 이상일 때 -->
             <div class="mb-3">
                 <select ng-model="status" ng-change="onSelect(status, sid)"> 
                     <option ng-repeat="status in ansStatusList">{{status}}</option>
                 </select>
             </div>
-            <table class="table table-bordered">
+            <table class="table table-bordered" ng-if="inquirylist.length > 0">
                 <thead>
                     <tr class="thead-dark" style="text-align: center;">
                         <th>번호</th>
@@ -85,7 +82,7 @@
                                 ng-click="checkDelete(inquiry.inquiry_id, inquiry.inquiry_sabangid)">삭제</button>
                         </td>
                     </tr>
-                    <tr ng-show="pager.totalGroupNo > 1">
+                    <tr>
                         <td colspan="7" style="text-align: center;">
                             <button class="btn btn-outline-primary btn-sm" ng-click="getInquiryList(1, sid)">처음</button>
                             <button class="btn btn-sm" ng-show="pager.groupNo>1"
@@ -102,6 +99,9 @@
                 </tbody>
 
             </table>
+        </div>
+        <div ng-if="inquirylist.length == 0">  
+            <div class="noInquiryMsg">문의 사항이 없습니다.</div>
         </div>
 
     </div>
