@@ -20,12 +20,26 @@ router.get("", async (req, res, next)=> {
         const sabangViewList = await sabangService.list(pager, 'view');
         const sabangHighList = await sabangService.list(pager, 'high');
         const sabangLowList = await sabangService.list(pager, 'low');
-        /* 4가지 필터링 카테고리  */
+
+        /* 3가지 필터링 카테고리  */
+        const sabangSaleingRows = await sabangService.totalRows('판매중');
+        const sabangSaleingPager = paging.init(6, 5, pageNo, sabangSaleingRows);
+        const sabangSaleingList = await sabangService.filterlist(sabangSaleingPager, '판매중');
+
+        const sabangSaleReadyRows = sabangService.totalRows('판매준비중');
+        const sabangSaleReadyPager = paging.init(6, 5, pageNo, sabangSaleReadyRows);
+        const sabangSaleReadyList = await sabangService.filterlist(sabangSaleReadyPager, '판매준비중');
+
+        const sabangSaleStopRows = sabangService.totalRows('판매중지');
+        const sabangSaleStopPager = paging.init(6, 5, pageNo, sabangSaleStopRows);
+        const sabangSaleStopList = await sabangService.filterlist(sabangSaleStopPager, '판매중지');
 
         // 응답 JSON 
-        res.json({pager, sabangBuyList, sabangViewList, sabangHighList, sabangLowList});
+        res.json({pager, sabangBuyList, sabangViewList, sabangHighList, sabangLowList,
+            sabangSaleingPager, sabangSaleingList,
+            sabangSaleReadyPager, sabangSaleReadyList,
+            sabangSaleStopPager, sabangSaleStopList});
     }catch(error){
-        console.log("--------------------err: ", error.message);
         next(error);
     }
 });

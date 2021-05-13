@@ -1,10 +1,13 @@
 const db = require("../sequelize/models");
 
 module.exports = {
-    totalRows: async function(){ 
+    totalRows: async function(filterType){ 
         try{
-            const result = await db.Sabang.count();
-            console.log("Sabang Service Result: ", result);
+            let where = null;
+            if(filterType){
+                where = {sabang_state: filterType};
+            }
+            const result = await db.Sabang.count({where});
             return result;
         }catch(error){
             throw error;
@@ -25,6 +28,19 @@ module.exports = {
             }
             const result = await db.Sabang.findAll({
                 order,
+                limit: pager.rowsPerPage,
+                offset: pager.startRowIndex
+            }); 
+            return result;
+        }catch(error){
+            throw error;
+        }
+    },
+
+    filterlist: async function(pager, filterType){
+        try{
+            const result = await db.Sabang.findAll({
+                where: {sabang_state: filterType},
                 limit: pager.rowsPerPage,
                 offset: pager.startRowIndex
             }); 

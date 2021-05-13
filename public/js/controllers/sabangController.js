@@ -52,32 +52,19 @@ angular.module("app")
                         $scope.pageRange.push(i)
                     }
 
-                    if(response.data.sabangSaleingPager){
-                        $scope.sabangSaleingPager = response.data.sabangSaleingPager;
-                        $scope.sabangSaleReadyPager = response.data.sabangSaleReadyPager;
-                        $scope.sabangSaleStopPager = response.data.sabangSaleStopPager;
-      
-                        $scope.sabangViewList = response.data.sabangViewList;
-                        $scope.sabangHighList = response.data.sabangHighList;
-                        $scope.sabangLowList = response.data.sabangLowList;
-                        $scope.sabangSaleingList = response.data.sabangSaleingList;
-                        $scope.sabangSaleReadyList = response.data.sabangSaleReadyList;
-                        $scope.sabangSaleStopList = response.data.sabangSaleStopList;
+                    $scope.sabangSaleingpageRange = [];
+                    for(var i=$scope.sabangSaleingPager.startPageNo; i<=$scope.sabangSaleingPager.endPageNo; i++){
+                        $scope.sabangSaleingpageRange.push(i)
+                    }
 
-                        $scope.sabangSaleingpageRange = [];
-                        for(var i=$scope.sabangSaleingPager.startPageNo; i<=$scope.sabangSaleingPager.endPageNo; i++){
-                            $scope.sabangSaleingpageRange.push(i)
-                        }
-    
-                        $scope.sabangSalereadypageRange = [];
-                        for(var i=$scope.sabangSaleReadyPager.startPageNo; i<=$scope.sabangSaleReadyPager.endPageNo; i++){
-                            $scope.sabangSalereadypageRange.push(i)
-                        }
-    
-                        $scope.sabangSalestoppageRange = [];
-                        for(var i=$scope.sabangSaleStopPager.startPageNo; i<=$scope.sabangSaleStopPager.endPageNo; i++){
-                            $scope.sabangSalestoppageRange.push(i)
-                        }
+                    $scope.sabangSalereadypageRange = [];
+                    for(var i=$scope.sabangSaleReadyPager.startPageNo; i<=$scope.sabangSaleReadyPager.endPageNo; i++){
+                        $scope.sabangSalereadypageRange.push(i)
+                    }
+
+                    $scope.sabangSalestoppageRange = [];
+                    for(var i=$scope.sabangSaleStopPager.startPageNo; i<=$scope.sabangSaleStopPager.endPageNo; i++){
+                        $scope.sabangSalestoppageRange.push(i)
                     }
 
                     $scope.view = "list";
