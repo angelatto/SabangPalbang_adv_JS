@@ -74,10 +74,21 @@ angular.module("app")
        
         $scope.sabang_sort = "구매수";
         $scope.sabang_sorts=["재고상태", "구매수", "조회수", "높은 가격순", "낮은 가격순"];
+        $scope.onSelect1 = (status) => {
+            $scope.sabang_sort = status;
+            $scope.getList(1);
+            $scope.view = "list";
+        };
+        
 
         $scope.package_state = "판매중";
         $scope.package_states = ["판매중","판매준비중","판매중지"];
-
+        $scope.onSelect2 = (status) => {
+            $scope.package_state = status;
+            $scope.getList(1);
+            $scope.view = "list";
+        };
+        
         //$scope.getList(1);
         $scope.read = (sabang_id) =>{
             console.log("Angular - read() 진입 --------");

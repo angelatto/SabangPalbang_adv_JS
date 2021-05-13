@@ -1,19 +1,44 @@
 const db = require("../sequelize/models");
 
 module.exports = {
-    totalRows: async function(){ 
+    totalRows: async function(filterType){ 
         try{
-            const result = await db.OrderMain.count();
+            let where = null;
+            if(filterType){
+                where = {order_state: filterType};
+            }
+            const result = await db.OrderMain.count({where});
             return result;
         }catch(error){
             throw error;
         }
     },
 
-    list: async function(pager){
+    list: async function(pager, orderType){
+        try{
+            let order = [["order_id", "DESC"]]; 
+            if(orderType){
+                if(orderType == 'new'){
+                    order = [["order_date", "DESC"]];
+                }else if(orderType == 'old'){
+                    order = [["order_date", "ASC"]];
+                }
+            }
+            const result = await db.OrderMain.findAll({
+                order,
+                limit: pager.rowsPerPage,
+                offset: pager.startRowIndex
+            }); 
+            return result;
+        }catch(error){
+            throw error;
+        }
+    },
+
+    filterlist: async function(pager, filterType){
         try{
             const result = await db.OrderMain.findAll({
-                order: [["order_id", "DESC"]],
+                where: {order_state: filterType},
                 limit: pager.rowsPerPage,
                 offset: pager.startRowIndex
             }); 

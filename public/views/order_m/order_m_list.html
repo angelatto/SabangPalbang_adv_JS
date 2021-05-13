@@ -30,19 +30,19 @@
 
         <div class="mb-3 d-flex flex-row">
             <div>
-                <select ng-model="kindVal">
+                <select ng-model="kindVal" ng-change="onSelect1(kindVal)" >
                     <option ng-repeat="kindVal in kindList">{{kindVal}}</option>
                 </select>
             </div>
 
             <div ng-show="kindVal=='배송상태'">
-                <select ng-model="order_state">
+                <select ng-model="order_state" ng-change="onSelect2(order_state)">
                     <option ng-repeat="order_state in order_states">{{order_state}}</option>
                 </select>
             </div>
 
             <div ng-show="kindVal=='날짜'">
-                <select ng-model="date_state">
+                <select ng-model="date_state" ng-change="onSelect3(date_state)">
                     <option ng-repeat="date_state in date_states">{{date_state}}</option>
                 </select>
             </div>

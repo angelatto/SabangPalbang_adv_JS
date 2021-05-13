@@ -14,14 +14,37 @@ router.get("", async (req, res, next)=> {
     try{
         const pageNo = req.query.pageNo? parseInt(req.query.pageNo): 1;
         const totalRows = await orderService.totalRows();
-        // console.log("total: ", totalRows);
         const pager = paging.init(10, 5, pageNo, totalRows);
-        
-        // 리스트 정렬 조건 만들어서 파라미터로 넘겨주기 let where
-        const orders = await orderService.list(pager);
+        // 정렬 
+        const orders = await orderService.list(pager); // 주문순 - default
+        const dateUpList = await orderService.list(pager, 'old'); // 오래된순
+        const dateDownList = await orderService.list(pager, 'new'); // 최신순 
 
+        // 필터링 5가지 
+        const waitForPayRows = await orderService.totalRows('결제대기중');
+        const waitForPaypager = paging.init(6, 5, pageNo, waitForPayRows);
+        const waitForPayList = await orderService.filterlist(waitForPaypager, '결제대기중');
+
+        const paySuccessRows = await orderService.totalRows('결제완료');
+        const paySuccesspager = paging.init(6, 5, pageNo, paySuccessRows);
+        const paySuccessList = await orderService.filterlist(paySuccesspager, '결제완료');
+        
+        const postReadyRows = await orderService.totalRows('배송준비중');
+        const postReadypager = paging.init(6, 5, pageNo, postReadyRows);
+        const postReadyList = await orderService.filterlist(postReadypager, '배송준비중');
+
+        const postingRows = await orderService.totalRows('배송중');
+        const postingpager = paging.init(6, 5, pageNo, postingRows);
+        const postingList = await orderService.filterlist(postingpager, '배송중');
+
+        const postSuccessRows = await orderService.totalRows('배송완료');
+        const postSuccesspager = paging.init(6, 5, pageNo, postSuccessRows);
+        const postSuccessList = await orderService.filterlist(postSuccesspager, '배송완료');
+        
         // 응답 JSON 
-        res.json({pager, orders});
+        res.json({pager, orders, dateUpList, dateDownList,
+            waitForPaypager, paySuccesspager, postReadypager, postingpager, postSuccesspager,
+            waitForPayList, paySuccessList, postReadyList, postingList, postSuccessList});
     }catch(error){
         next(error);
     }

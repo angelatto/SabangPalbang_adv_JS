@@ -35,12 +35,12 @@
         </div>    
         <div class="mb-3 d-flex flex-row">
             <div class="mb-3">
-                <select ng-model="sabang_sort">
+                <select ng-model="sabang_sort" ng-change="onSelect1(sabang_sort)">
                     <option ng-repeat="sabang_sort in sabang_sorts">{{sabang_sort}}</option>
                 </select>
             </div>
             <div ng-show="sabang_sort=='재고상태'" class="mb-3">
-                <select ng-model="package_state">
+                <select ng-model="package_state" ng-change="onSelect2(package_state)">
                     <option ng-repeat="package_state in package_states">{{package_state}}</option>
                 </select>
             </div>

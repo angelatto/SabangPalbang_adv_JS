@@ -120,18 +120,30 @@ angular.module("app")
             $scope.view = "list";
         };
         
-        $scope.kindList=["주문번호", "배송상태", "날짜"];
         $scope.kindVal = "주문번호";
-        
+        $scope.kindList=["주문번호", "배송상태", "날짜"];
+        $scope.onSelect1 = (status) => {
+            $scope.kindVal = status;
+            $scope.getList(1);
+            $scope.view = "list";
+        };
 
         $scope.order_state = "배송준비중";
         $scope.order_states = ["결제대기중","결제완료","배송준비중", "배송중", "배송완료"];
-       
-            
+        $scope.onSelect2 = (status) => {
+            $scope.order_state = status;
+            $scope.getList(1);
+            $scope.view = "list";
+        };
+
         $scope.date_state = "오래된 순"
         $scope.date_states = ["최신 순", "오래된 순"];
-
-
+        $scope.onSelect3 = (status) => {
+            $scope.date_state = status;
+            $scope.getList(1);
+            $scope.view = "list";
+        };
+       
         $scope.sattachUrl = (sabang_id) => {
             return orderService.sattachUrl(sabang_id);
         };
