@@ -32,8 +32,20 @@ angular.module("app")
         $scope.getList = (pageNo) => {
             sabangService.list(pageNo)
                 .then((response) => {
+                    // 정렬 
                     $scope.pager = response.data.pager;
                     $scope.sabangBuyList = response.data.sabangBuyList;
+                    $scope.sabangViewList = response.data.sabangViewList;
+                    $scope.sabangHighList = response.data.sabangHighList;
+                    $scope.sabangLowList = response.data.sabangLowList;
+
+                    // 필터링 
+                    $scope.sabangSaleingPager = response.data.sabangSaleingPager;
+                    $scope.sabangSaleReadyPager = response.data.sabangSaleReadyPager;
+                    $scope.sabangSaleStopPager = response.data.sabangSaleStopPager;
+                    $scope.sabangSaleingList = response.data.sabangSaleingList;
+                    $scope.sabangSaleReadyList = response.data.sabangSaleReadyList;
+                    $scope.sabangSaleStopList = response.data.sabangSaleStopList;
 
                     $scope.pageRange = [];
                     for(var i=$scope.pager.startPageNo; i<=$scope.pager.endPageNo; i++){

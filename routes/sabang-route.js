@@ -13,13 +13,19 @@ const router = express.Router();
 router.get("", async (req, res, next)=> {
     try{
         const pageNo = req.query.pageNo? parseInt(req.query.pageNo) : 1;
+        /* 4가지 정렬 카테고리  */
         const totalRows = await sabangService.totalRows();
         const pager = paging.init(6, 5, pageNo, totalRows);
         const sabangBuyList = await sabangService.list(pager);
+        const sabangViewList = await sabangService.list(pager, 'view');
+        const sabangHighList = await sabangService.list(pager, 'high');
+        const sabangLowList = await sabangService.list(pager, 'low');
+        /* 4가지 필터링 카테고리  */
 
         // 응답 JSON 
-        res.json({pager, sabangBuyList});
+        res.json({pager, sabangBuyList, sabangViewList, sabangHighList, sabangLowList});
     }catch(error){
+        console.log("--------------------err: ", error.message);
         next(error);
     }
 });
