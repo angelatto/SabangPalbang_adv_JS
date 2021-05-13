@@ -14,10 +14,13 @@ router.get("", async (req, res, next)=> {
         const pageNo = req.query.pageNo? parseInt(req.query.pageNo) : 1;
         const totalRows = await palbangService.totalRows();
         const pager = paging.init(6, 5, pageNo, totalRows);
-        const palbangLikeList = await palbangService.list(pager);
+        const palbangLikeList = await palbangService.list(pager); // 좋아요수
+        const palbangViewList = await palbangService.list(pager, 'view'); // 조회수 
+        const palbangNewList = await palbangService.list(pager, 'new'); // 최신순
+        const palbangOldList = await palbangService.list(pager, 'old'); // 오래된순 
 
         // 응답 JSON 
-        res.json({pager, palbangLikeList});
+        res.json({pager, palbangLikeList, palbangViewList, palbangNewList, palbangOldList});
     }catch(error){
         next(error);
     }
