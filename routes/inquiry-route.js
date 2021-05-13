@@ -14,8 +14,10 @@ const router = express.Router();
 router.get("", async (req, res, next)=> {
     try{
         const pageNo = req.query.pageNo? parseInt(req.query.pageNo) : 1;
+        // 구매수, 조회수, 높은 가격순, 낮은 가격순 
         const totalRows = await sabangService.totalRows();
         const pager = paging.init(6, 5, pageNo, totalRows);
+
         const sabangBuyList = await sabangService.list(pager);
         for(let i in sabangBuyList){
             const sid = sabangBuyList[i].dataValues.sabang_id;
@@ -25,9 +27,37 @@ router.get("", async (req, res, next)=> {
             sabangBuyList[i].dataValues.noAnsInquiryNum = noAnsInquiryNum;
         }
 
+        const sabangViewList = await sabangService.list(pager, 'view');
+        for(let i in sabangViewList){
+            const sid = sabangViewList[i].dataValues.sabang_id;
+            const totalInquiryNum = await inquiryService.totalRows(sid);
+            const noAnsInquiryNum = await inquiryService.getNoAnsCount(sid);
+            sabangViewList[i].dataValues.totalInquiryNum = totalInquiryNum;
+            sabangViewList[i].dataValues.noAnsInquiryNum = noAnsInquiryNum;
+        }
+
+        const sabangHighList = await sabangService.list(pager, 'high');
+        for(let i in sabangHighList){
+            const sid = sabangHighList[i].dataValues.sabang_id;
+            const totalInquiryNum = await inquiryService.totalRows(sid);
+            const noAnsInquiryNum = await inquiryService.getNoAnsCount(sid);
+            sabangHighList[i].dataValues.totalInquiryNum = totalInquiryNum;
+            sabangHighList[i].dataValues.noAnsInquiryNum = noAnsInquiryNum;
+        }
+
+        const sabangLowList = await sabangService.list(pager, 'low');
+        for(let i in sabangBuyList){
+            const sid = sabangBuyList[i].dataValues.sabang_id;
+            const totalInquiryNum = await inquiryService.totalRows(sid);
+            const noAnsInquiryNum = await inquiryService.getNoAnsCount(sid);
+            sabangBuyList[i].dataValues.totalInquiryNum = totalInquiryNum;
+            sabangBuyList[i].dataValues.noAnsInquiryNum = noAnsInquiryNum;
+        }
+
         // 응답 JSON 
-        res.json({pager, sabangBuyList});
+        res.json({pager, sabangBuyList, sabangViewList, sabangHighList, sabangLowList});
     }catch(error){
+        console.log("--------------------err: ", error.message);
         next(error);
     }
 });
@@ -49,6 +79,7 @@ router.get("/sattach/:sabang_id", async (req, res, next)=> {
             });
         }
     }catch(error){
+        console.log("err: ", error.message);
         next(error);
     }
 });

@@ -4,7 +4,7 @@ module.exports = {
     totalRows: async function(sid, ansstate){ 
         try{
             let where = {inquiry_sabangid: sid};
-            if(ansstate != '전체답변'){
+            if(ansstate && ansstate != '전체답변'){
                 where.inquiry_ansstate = ansstate;
             }
             const result = await db.Inquiry.count({where});
@@ -32,7 +32,7 @@ module.exports = {
     list: async function(pager, sid, ansstate){
         try{
             let where = {inquiry_sabangid: sid};
-            if(ansstate != '전체답변'){
+            if(ansstate && ansstate != '전체답변'){
                 where.inquiry_ansstate = ansstate;
             }
             const result = await db.Inquiry.findAll({

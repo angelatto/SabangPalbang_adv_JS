@@ -11,10 +11,20 @@ module.exports = {
         }
     },
 
-    list: async function(pager){
+    list: async function(pager, orderType){
         try{
+            let order = [["sabang_buycount", "DESC"]]; 
+            if(orderType){
+                if(orderType == 'view'){
+                    order = [["sabang_viewcount", "DESC"]];
+                }else if(orderType == 'high'){
+                    order = [["sabang_saleprice", "DESC"]];
+                }else if(orderType == 'low'){
+                    order = [["sabang_saleprice", "ASC"]];
+                }
+            }
             const result = await db.Sabang.findAll({
-                order: [["sabang_buycount", "DESC"]],
+                order,
                 limit: pager.rowsPerPage,
                 offset: pager.startRowIndex
             }); 
