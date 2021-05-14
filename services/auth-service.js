@@ -4,8 +4,12 @@ const bcrypt = require("bcrypt");
 module.exports = {
     login: async function(user){
         try{
+            // ROLE_ADMIN 조건 추가 - 관리자만 로그인 가능 
             const dbUser = await db.Member.findOne({
-                where: {member_email: user.uid}
+                where: {
+                    member_email: user.uid,
+                    member_authority: 'ROLE_ADMIN'
+                }
             }); 
             let result = {};
             if(dbUser){
