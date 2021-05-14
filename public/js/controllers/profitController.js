@@ -75,7 +75,7 @@ angular.module("app")
                 $scope.threeTotalCount = threeTotalCount;
 
                 $scope.totalPriceData = [
-                    [allTotalSales[0].sum, allTotalSales[1].sum, allTotalSales[2].sum, 23000000,25000000]
+                    [allTotalSales[0].sum, allTotalSales[1].sum, allTotalSales[2].sum, 0]
                 ];
 
                 // 3. 최근 3달 주문수 
