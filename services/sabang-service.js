@@ -119,7 +119,6 @@ module.exports = {
 
     /* 패키지 삭제 */
     delete: async function(sabang_id){
-
         try{
             await db.Sabang.destroy({
                 where: {sabang_id}
@@ -160,7 +159,6 @@ module.exports = {
                 target.product_imgsname = product.product_imgsname;
                 target.product_imgtype = product.product_imgtype;
             }
-            
             console.log("target: ", target);
 
             // 1. 상품 테이블 수정 
@@ -169,8 +167,6 @@ module.exports = {
             });
 
             // 2. 사방 테이블 가격 갱신
-            console.log("111111112: ", updatePrice);
-
             await db.Sabang.increment({
                 sabang_price: updatePrice,
                 sabang_saleprice: updatePrice

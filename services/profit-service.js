@@ -59,10 +59,6 @@ module.exports = {
         group by member_id
         order by count(member_id) desc
         limit 5;
-
-         ["member_name", "member_id", "member_email"],
-         [sequelize.fn('COUNT', sequelize.col('db.Member.member_id'), 'count')]
-         [[sequelize.fn('count', sequelize.col('Member.member_id')), 'DESC']],
     */
     getVipMembers: async function(){
         try{
