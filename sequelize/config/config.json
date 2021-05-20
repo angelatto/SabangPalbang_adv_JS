@@ -1,32 +1,32 @@
 {
   "development": {
-    "username": "team2",
-    "password": "12345",
-    "database": "team2",
-    "host": "106.253.56.122",
-    "dialect": "mysql",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": "",
     "pool": {
       "max": 3,
       "min": 1
     }
   },
   "test": {
-    "username": "team2",
-    "password": "12345",
-    "database": "team2",
-    "host": "106.253.56.122",
-    "dialect": "mysql",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": "",
     "pool": {
       "max": 3,
       "min": 1
     }
   },
   "production": {
-    "username": "team2",
-    "password": "12345",
-    "database": "team2",
-    "host": "106.253.56.122",
-    "dialect": "mysql",
+    "username": "",
+    "password": "",
+    "database": "",
+    "host": "",
+    "dialect": "",
     "pool": {
       "max": 3,
       "min": 1
